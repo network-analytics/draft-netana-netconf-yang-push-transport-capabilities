@@ -1,0 +1,784 @@
+
+
+
+
+NETCONF Working Group                                              Q. Wu
+Internet-Draft                                                     Q. Ma
+Intended status: Standards Track                                  Huawei
+Expires: 17 April 2025                                     A. Huang Feng
+                                                               INSA-Lyon
+                                                                 T. Graf
+                                                                Swisscom
+                                                         14 October 2024
+
+
+                YANG Notification Transport Capabilities
+        draft-netana-netconf-yang-push-transport-capabilities-00
+
+Abstract
+
+   This document proposes a YANG module for YANG notifications transport
+   capabilities which augments "ietf-system-capabilities" YANG module
+   defined in [RFC9196] and provides transport, encoding and encryption
+   system capabilities for transport specific Notification.  This YANG
+   module can be used by the client to learn capability information from
+   the server at runtime or at implementation time, by making use of the
+   YANG instance data file format.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 17 April 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 1]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+     1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Capabilities for Systems and Datastore Update
+           Notifications . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+     4.1.  Updates to the IETF XML Registry  . . . . . . . . . . . .   7
+     4.2.  Updates to the YANG Module Names Registry . . . . . . . .   7
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   6.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .   8
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
+   Appendix A.  Usage Example of interaction with UDP Notif and HTTP
+           Notif for Configured Subscription . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+
+1.  Introduction
+
+   Notification capabilities model defined in [RFC9196] allows a client
+   to discover a set of capabilities supported by the server (e.g.,
+   basic system capabilities and YANG-Push related capabilities) both at
+   implementation time and at runtime.  These capabilities allow the
+   client to adjust its behavior to take advantage of the features
+   exposed by the server.
+
+   However the client and the server may still support various different
+   transport specific parameters (e.g., transport protocol, encoding
+   format, encryption).  As described in section 3.1 of [RFC8641], a
+   simple negotiation (i.e., inserting hints into error responses to a
+   failed RPC request) between subscribers and publishers for
+   subscription parameters increases the likelihood of success for
+   subsequent RPC requests, but not guaranteed, which may cause
+   unexpected failure or additional message exchange between client and
+   server.
+
+   This document defines a corresponding solution that is built on top
+   of [RFC9196].  Supplementing that work are YANG data model
+   augmentations for transport specific notification.  The module can be
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 2]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   used by the client to discover capability information from the server
+   at runtime or at implementation time, by making use of the YANG
+   instance data file format.
+
+1.1.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.  Capabilities for Systems and Datastore Update Notifications
+
+   The YANG module "ietf-notification-capabilities" defined in [RFC9196]
+   specifies the following server capabilities related to YANG Push:
+
+   *  Supported (reporting) periods for "periodic" subscriptions
+
+   *  Maximum number of objects that can be sent in an update
+
+   *  The set of datastores or data nodes for which "periodic" or "on-
+      change" notification is supported
+
+   *  Supported dampening periods for "on-change" subscriptions
+
+   These server capabilities are transport independent, session level
+   capabilities.  They can be provided either at the implementation time
+   or reported at runtime.
+
+   This document augments System Capabilities model and provides
+   additional transport related attributes associated with system
+   capabilities:
+
+   *  Specification of transport protocols the client can use to
+      establish a HTTPS-based [I-D.ietf-netconf-https-notif] or UDP-
+      based [I-D.ietf-netconf-udp-notif] configured transport
+      connection;
+
+   *  Specification of transport encoding, such as JSON or XML as
+      defined in [RFC8040] or CBOR as defined in [RFC9254] the client
+      can use to encode YANG notifications;
+
+   *  Specification of secure transport mechanisms that are needed by
+      the client to communicate with the server such as DTLS as defined
+      in [RFC9147] TLS as defined in [RFC8446] or SSH as defined in
+      [RFC4254];
+
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 3]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+2.1.  Tree Diagram
+
+   The following tree diagram [RFC8340] provides an overview of the data
+   model.
+
+   module: ietf-notification-transport-capabilities
+     augment /sysc:system-capabilities:
+       +--ro ietf-notification-transport-capabilities
+          +--ro ietf-notification-transport-capability* []
+             +--ro transport-protocol?            identityref
+             +--ro encoding-format*               identityref
+             +--ro security-protocol?             identityref
+
+3.  YANG Module
+
+   <CODE BEGINS>
+     file "ietf-notification-transport-capabilities@2024-10-14.yang"
+   module ietf-notification-transport-capabilities {
+     yang-version 1.1;
+     namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
+     prefix ntc;
+
+     import ietf-system-capabilities {
+       prefix sysc;
+     }
+     import ietf-notification-capabilities {
+       prefix inc;
+     }
+
+     organization "IETF NETCONF (Network Configuration) Working Group";
+     contact
+       "WG Web:   <https://datatracker.ietf.org/group/netconf/>
+        WG List:  <mailto:netconf@ietf.org>
+
+        Authors:  Qin Wu
+                  <mailto:bill.wu@huawei.com>
+                  Qiufang Ma
+                  <mailto:maqiufang1@huawei.com>
+                  Alex Huang Feng
+                  <mailto:alex.huang-feng@insa-lyon.fr>
+                  Thomas Graf
+                  <mailto:thomas.graf@swisscom.com>";
+
+     description
+       "This module defines an extension to System Capability and YANG Push
+        Notification Capabilities model and provides additional
+        transport specific capabilities for YANG notifications.
+
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 4]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+        Copyright (c) 2019 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject
+        to the license terms contained in, the Simplified BSD License
+        set forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (http://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of RFC XXXX;
+        see the RFC itself for full legal notices.";
+
+     revision 2024-10-14 {
+       description
+         "Initial revision.";
+       reference
+         "RFC XXXX: YANG Notifications Transport Capabilities";
+     }
+
+     identity transport-protocol {
+       description
+         "Base identity for transport protocol type.";
+     }
+
+     identity udp-notif {
+       base transport-protocol;
+       description
+         "Identity for udp notif as transport protocol.";
+       reference
+         "draft-ietf-netconf-udp-notif:UDP-based Transport
+          for Configured Subscriptions";
+     }
+
+     identity http-notif {
+       base transport-protocol;
+       description
+         "Identity for http notif as transport protocol.";
+       reference
+         "draft-ietf-netconf-https-notif: An HTTPS-based
+          Transport for Configured Subscriptions";
+     }
+
+     identity tls {
+       base security-protocol;
+       description
+         "Identity for tls security protocol.";
+     }
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 5]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+     identity dtls {
+       base security-protocol;
+       description
+         "Identity for dtls security protocol.";
+     }
+
+     identity ssh {
+       base security-protocol;
+       description
+         "Identity for ssh transport protocol.";
+     }
+
+     identity encoding-format {
+       description
+         "Base identity for encoding format type.";
+     }
+
+     identity xml {
+       base encoding-format;
+       description
+         "Identity for xml encoding format.";
+     }
+
+     identity json {
+       base encoding-format;
+       description
+         "Identity for json encoding format.";
+     }
+
+     identity cbor {
+       base binary;
+       description
+         "Identity for cbor encoding format.";
+     }
+
+     augment "/sysc:system-capabilities" {
+       description
+         "Add system level capability.";
+       container data-export-capabilities {
+         description
+           "Capabilities related to data export notification capabilities negotiation.";
+         list data-export-capability {
+           description
+             "Capability list related to data export notification capabilities negotiation.";
+           leaf transport-protocol {
+             type identityref {
+               base transport-protocol;
+             }
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 6]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+             description
+               "Type of transport protocol.";
+           }
+           leaf-list encoding-format {
+             type identityref {
+               base encoding-format;
+             }
+             description
+               "Type of encoding format.";
+           }
+           leaf security-protocol {
+             type identityref {
+               base security-protocol;
+             }
+             description
+               "Type of secure transport.";
+           }
+           leaf message-bundling-support {
+             type empty;
+             description
+               "Enables message bundling support.";
+           }
+         }
+       }
+     }
+   }
+   <CODE ENDS>
+
+4.  IANA Considerations
+
+4.1.  Updates to the IETF XML Registry
+
+   This document registers a URI in the "IETF XML Registry" [RFC3688].
+   Following the format in [RFC3688], the following registration has
+   been made:
+
+   URI:
+      urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
+   Registrant Contact:
+      The IESG.
+   XML:
+      N/A; the requested URI is an XML namespace.
+
+4.2.  Updates to the YANG Module Names Registry
+
+   This document registers one YANG module in the "YANG Module Names"
+   registry [RFC6020].  Following the format in [RFC6020], the following
+   registration has been made:
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 7]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   name:
+      ietf-notification-transport-capabilities
+   namespace:
+      urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
+   prefix:
+      dec
+   reference:
+      RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+      this note.)
+
+5.  Security Considerations
+
+   The YANG module specified in this document defines a schema for data
+   that is designed to be accessed via network management protocols such
+   as NETCONF [RFC6241] or RESTCONF [RFC8040].  The lowest NETCONF layer
+   is the secure transport layer, and the mandatory-to-implement secure
+   transport is Secure Shell (SSH) [RFC6242].  The lowest RESTCONF layer
+   is HTTPS, and the mandatory-to-implement secure transport is TLS
+   [RFC8446].
+
+   The NETCONF Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.
+
+   All protocol-accessible data nodes are read-only and cannot be
+   modified.  The data in these modules is not security sensitive.
+   Access control may be configured, to avoid exposing the read-only
+   data.
+
+   When this data is in file format, data should be protected against
+   modification or unauthorized access using normal file handling
+   mechanisms.
+
+6.  Contributors
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 8]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+      Ran Tao
+      Huawei
+      101 Software Avenue, Yuhua District
+      Nanjing, Jiangsu 210012
+      China
+      Email: taoran20@huawei.com
+
+      Liang Geng
+      China Mobile
+      32 Xuanwumen West St, Xicheng District
+      Beijing 10053
+      China
+      Email: gengliang@chinamobile.com
+
+      Peng Liu
+      China Mobile
+      Beiqijia Town, Changping District
+      Beijing 10053
+      China
+      Email: liupengyjy@chinamobile.com
+
+      Wei Wang
+      China Telecom
+      32 Xuanwumen West St, Xicheng District
+      Beijing 102209
+      China
+      Email: wangw36@chinatelecom.cn
+
+7.  References
+
+7.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC4254]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Connection Protocol", RFC 4254, DOI 10.17487/RFC4254,
+              January 2006, <https://www.rfc-editor.org/info/rfc4254>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/info/rfc6241>.
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                 [Page 9]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
+              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
+              <https://www.rfc-editor.org/info/rfc6242>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/info/rfc8341>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
+   [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
+              Datagram Transport Layer Security (DTLS) Protocol Version
+              1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
+              <https://www.rfc-editor.org/info/rfc9147>.
+
+   [RFC9196]  Lengyel, B., Clemm, A., and B. Claise, "YANG Modules
+              Describing Capabilities for Systems and Datastore Update
+              Notifications", RFC 9196, DOI 10.17487/RFC9196, February
+              2022, <https://www.rfc-editor.org/info/rfc9196>.
+
+   [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
+              C., and M. Richardson, "Encoding of Data Modeled with YANG
+              in the Concise Binary Object Representation (CBOR)",
+              RFC 9254, DOI 10.17487/RFC9254, July 2022,
+              <https://www.rfc-editor.org/info/rfc9254>.
+
+7.2.  Informative References
+
+   [I-D.ietf-netconf-https-notif]
+              Jethanandani, M. and K. Watsen, "An HTTPS-based Transport
+              for YANG Notifications", Work in Progress, Internet-Draft,
+              draft-ietf-netconf-https-notif-15, 1 February 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
+              https-notif-15>.
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                [Page 10]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   [I-D.ietf-netconf-udp-notif]
+              Zheng, G., Zhou, T., Graf, T., Francois, P., Feng, A. H.,
+              and P. Lucente, "UDP-based Transport for Configured
+              Subscriptions", Work in Progress, Internet-Draft, draft-
+              ietf-netconf-udp-notif-14, 4 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
+              udp-notif-14>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/info/rfc3688>.
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/info/rfc6020>.
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/info/rfc8340>.
+
+Appendix A.  Usage Example of interaction with UDP Notif and HTTP Notif
+             for Configured Subscription
+
+   The following instance-data example describes the Data Export
+   Notification capabilities of a hypothetical "acme-router".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                [Page 11]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<instance-data-set xmlns=
+"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data">
+  <name>acme-router-notification-capabilities</name>
+  <content-schema>
+    <module>ietf-system-capabilities@2020-03-23</module>
+    <module>ietf-notification-capabilities@2020-03-23</module>
+    <module>ietf-notification-transport-capabilities@2024-10-14</module>
+  </content-schema>
+  <!-- revision date, contact, etc. -->
+  <description>Server Capability Discovery</description>
+  <content-data>
+    <system-capabilities
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+      xmlns:inc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+      xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">
+      <transport-capabilities>
+        <transport-capability>
+          <transport-protocol>http-notif</transport-protocol>
+          <encoding-format>json</encoding-format>
+          <encoding-format>xml</encoding-format>
+        </transport-capability>
+        <transport-capability>
+          <transport-protocol>udp-notif</transport-protocol>
+          <encoding-format>binary</encoding-format>
+        </transport-capability>
+      </transport-capabilities>
+    </system-capabilities>
+  </content-data>
+</instance-data-set>
+
+   In addition, the client could also query data export capability from
+   the server.  For example, the client sends <get> request message to
+   the the server to query data export capability from the server.
+
+ <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+   <get>
+     <filter type="subtree">
+     <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system-capabilities">
+       <transport-capabilities/>
+     </system-capabilities>
+    </filter>
+   </get>
+ </rpc>
+
+   The server returns server data export capability using <rpc-reply> as
+   follows:
+
+
+
+
+Wu, et al.                Expires 17 April 2025                [Page 12]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+<rpc-reply message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+  <system-capabilities
+   xmlns="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+   xmlns:dec="urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities">
+    <transport-capabilities>
+      <transport-capability>
+        <transport-protocol>http-notif</transport-protocol>
+        <encoding-format>json</encoding-format>
+      </transport-capability>
+      <transport-capability>
+        <transport-protocol>udp-notif</transport-protocol>
+        <encoding-format>binary</encoding-format>
+      </transport-capability>
+    </transport-capabilities>
+  </system-capabilities>
+</data>
+</rpc-reply>
+
+Authors' Addresses
+
+   Qin Wu
+   Huawei
+   101 Software Avenue, Yuhua District
+   Nanjing
+   Jiangsu, 210012
+   China
+   Email: bill.wu@huawei.com
+
+
+   Qiufang Ma
+   Huawei
+   101 Software Avenue, Yuhua District
+   Nanjing
+   Jiangsu, 210012
+   China
+   Email: maqiufang1@huawei.com
+
+
+   Alex Huang Feng
+   INSA-Lyon
+   Lyon
+   France
+   Email: alex.huang-feng@insa-lyon.fr
+
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                [Page 13]
+
+Internet-Draft  YANG Notification Transport Capabilities    October 2024
+
+
+   Thomas Graf
+   Swisscom
+   Binzring 17
+   CH-8045 Zurich
+   Switzerland
+   Email: thomas.graf@swisscom.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 17 April 2025                [Page 14]
