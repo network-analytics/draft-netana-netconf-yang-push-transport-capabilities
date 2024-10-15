@@ -183,8 +183,9 @@
       <t>This document augments System Capabilities model and provides
       additional transport related attributes associated with system
       capabilities:<list style="symbols">
-          <t>Specification of transport protocols the client can use to
-          establish a HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/>
+      
+      <t>Specification of transport protocols the client can use to
+      establish a HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/>
 		  or UDP-based <xref target="I-D.ietf-netconf-udp-notif"/> configured
 		  transport connection;</t>
 
@@ -203,15 +204,16 @@
         <t>The following tree diagram [RFC8340] provides an overview of the
         data model.</t>
 
-        <figure>
-          <artwork>module: ietf-notification-transport-capabilities
-  augment /sysc:system-capabilities:
-    +--ro ietf-notification-transport-capabilities
-       +--ro ietf-notification-transport-capability* []
-          +--ro transport-protocol?            identityref
-          +--ro encoding-format*               identityref
-          +--ro security-protocol?             identityref</artwork>
-        </figure>
+                <sourcecode type="yangtree"><![CDATA[
+module: ietf-notification-transport-capabilities
+
+  augment /sysc:system-capabilities/notc:subscription-capabilities:
+    +--ro notification-transport-capability
+       +--ro transport-capability* [transport-protocol]
+          +--ro transport-protocol    identityref
+          +--ro security-protocol?    identityref
+          +--ro encoding-format*      identityref
+]]></sourcecode>
       </section>
     </section>
 
@@ -222,11 +224,22 @@ module ietf-notification-transport-capabilities {
   namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
   prefix ntc;
 
+  import ietf-subscribed-notifications {
+    prefix sn;
+    reference
+      "RFC 8639: Subscription to YANG Notifications";
+  }
   import ietf-system-capabilities {
     prefix sysc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
   }
   import ietf-notification-capabilities {
-    prefix inc;
+    prefix notc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
   }
   
   organization "IETF NETCONF (Network Configuration) Working Group";
@@ -248,7 +261,7 @@ module ietf-notification-transport-capabilities {
      Notification Capabilities model and provides additional
      transport specific capabilities for YANG notifications.
 
-     Copyright (c) 2019 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -268,39 +281,27 @@ module ietf-notification-transport-capabilities {
       "RFC XXXX: YANG Notifications Transport Capabilities";
   }
 
-  identity transport-protocol {
+  identity security-protocol {
     description
-      "Base identity for transport protocol type.";
-  }
-
-  identity udp-notif {
-    base transport-protocol;
-    description
-      "Identity for udp notif as transport protocol.";
-    reference
-      "draft-ietf-netconf-udp-notif:UDP-based Transport 
-       for Configured Subscriptions";
-  }
-
-  identity http-notif {
-    base transport-protocol;
-    description
-      "Identity for http notif as transport protocol.";
-    reference
-      "draft-ietf-netconf-https-notif: An HTTPS-based 
-       Transport for Configured Subscriptions";
+      "Identity for security protocols.";
   }
 
   identity tls {
     base security-protocol;
     description
-      "Identity for tls security protocol.";
+      "Identity for TLS security protocol.";
   }
 
-  identity dtls {
+  identity dtls12 {
     base security-protocol;
     description
-      "Identity for dtls security protocol.";
+      "Identity for DTLS 1.2 security protocol.";
+  }
+
+  identity dtls13 {
+    base security-protocol;
+    description
+      "Identity for DTLS 1.3 security protocol.";
   }
 
   identity ssh {
@@ -309,51 +310,22 @@ module ietf-notification-transport-capabilities {
       "Identity for ssh transport protocol.";
   }
 
-  identity encoding-format {
-    description
-      "Base identity for encoding format type.";
-  }
-
-  identity xml {
-    base encoding-format;
-    description
-      "Identity for xml encoding format.";
-  }
-
-  identity json {
-    base encoding-format;
-    description
-      "Identity for json encoding format.";
-  }
-
-  identity cbor {
-    base binary;
-    description
-      "Identity for cbor encoding format.";
-  }
-
-  augment "/sysc:system-capabilities" {
+  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
     description
       "Add system level capability.";
-    container data-export-capabilities {
+    container notification-transport-capability {
       description
-        "Capabilities related to data export notification capabilities negotiation.";
-      list data-export-capability {
+        "Capabilities related to YANG-Push transports.";
+      list transport-capability {
+        key "transport-protocol";
         description
-          "Capability list related to data export notification capabilities negotiation.";
+          "Capability list related to notification transport capabilities.";
         leaf transport-protocol {
           type identityref {
-            base transport-protocol;
+            base sn:transport;
           }
           description
-            "Type of transport protocol.";
-        }
-        leaf-list encoding-format {
-          type identityref {
-            base encoding-format;
-          }
-          description
-            "Type of encoding format.";
+            "Supported transport protocol for YANG-Push.";
         }
         leaf security-protocol {
           type identityref {
@@ -362,10 +334,12 @@ module ietf-notification-transport-capabilities {
           description
             "Type of secure transport.";
         }
-        leaf message-bundling-support {
-          type empty;
+        leaf-list encoding-format {
+          type identityref {
+            base sn:encoding;
+          }
           description
-            "Enables message bundling support.";
+            "Supported encoding formats.";
         }
       }
     }
@@ -496,10 +470,9 @@ module ietf-notification-transport-capabilities {
       <?rfc include="reference.RFC.6020.xml"?>
 
       <?rfc include="reference.RFC.8340.xml"?>
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-udp-notif.xml"?>
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-https-notif.xml"?>
 
-      <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
-
-      <?rfc include='reference.I-D.ietf-netconf-https-notif'?>
     </references>
 
     <section title="Usage Example of interaction with UDP Notif and HTTP Notif for Configured Subscription">
@@ -521,7 +494,7 @@ module ietf-notification-transport-capabilities {
   &lt;content-data&gt;
     &lt;system-capabilities
       xmlns="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-      xmlns:inc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+      xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
       xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores"&gt;
       &lt;transport-capabilities&gt;
         &lt;transport-capability&gt;
