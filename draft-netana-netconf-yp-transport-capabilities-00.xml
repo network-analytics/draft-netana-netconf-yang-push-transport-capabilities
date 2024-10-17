@@ -20,7 +20,7 @@
 <?rfc strict="yes" ?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-netana-netconf-yang-push-transport-capabilities-00"
+<rfc category="std" docName="draft-netana-netconf-yp-transport-capabilities-00"
      ipr="trust200902">
   <front>
     <title abbrev="YANG Notification Transport Capabilities">YANG Notification Transport Capabilities</title>
