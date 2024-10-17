@@ -20,10 +20,12 @@
 <?rfc strict="yes" ?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-netana-netconf-yang-push-transport-capabilities-00"
+<rfc category="std"
+     docName="draft-netana-netconf-yang-push-transport-capabilities-00"
      ipr="trust200902">
   <front>
-    <title abbrev="YANG Notification Transport Capabilities">YANG Notification Transport Capabilities</title>
+    <title abbrev="YANG Notification Transport Capabilities">YANG Notification
+    Transport Capabilities</title>
 
     <author fullname="Qin Wu" initials="Q." surname="Wu">
       <organization>Huawei</organization>
@@ -109,7 +111,7 @@
       </address>
     </author>
 
-    <date day="14" month="October" year="2024"/>
+    <date day="17" month="October" year="2024"/>
 
     <area>OPS Area</area>
 
@@ -205,148 +207,66 @@
         <t>The following tree diagram <xref target="RFC8340"/> provides an
         overview of the data model.</t>
 
-                <sourcecode type="yangtree"><![CDATA[
-module: ietf-notification-transport-capabilities
-
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro transport-capabilities
-       +--ro transport-capability* [transport-protocol]
-          +--ro transport-protocol    identityref
-          +--ro security-protocol?    identityref
-          +--ro encoding-format*      identityref
-]]></sourcecode>
+        <sourcecode type="yangtree">module:
+        ietf-notification-transport-capabilities augment
+        /sysc:system-capabilities/notc:subscription-capabilities: +--ro
+        transport-capabilities +--ro transport-capability*
+        [transport-protocol] +--ro transport-protocol identityref +--ro
+        security-protocol? identityref +--ro encoding-format*
+        identityref</sourcecode>
       </section>
     </section>
 
     <section title="YANG Module">
-      <sourcecode type="yang" markers="true" name="ietf-notification-transport-capabilities@2024-10-14.yang"><![CDATA[
-module ietf-notification-transport-capabilities {
-  yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
-  prefix ntc;
-
-  import ietf-subscribed-notifications {
-    prefix sn;
-    reference
-      "RFC 8639: Subscription to YANG Notifications";
-  }
-  import ietf-system-capabilities {
-    prefix sysc;
-    reference
-      "RFC 9196: YANG Modules Describing Capabilities for
-       Systems and Datastore Update Notifications";
-  }
-  import ietf-notification-capabilities {
-    prefix notc;
-    reference
-      "RFC 9196: YANG Modules Describing Capabilities for
-       Systems and Datastore Update Notifications";
-  }
-  
-  organization "IETF NETCONF (Network Configuration) Working Group";
-  contact
-    "WG Web:   <https://datatracker.ietf.org/group/netconf/>
-     WG List:  <mailto:netconf@ietf.org>
-
-     Authors:  Qin Wu
-               <mailto:bill.wu@huawei.com>
-               Qiufang Ma
-               <mailto:maqiufang1@huawei.com>
-               Alex Huang Feng
-               <mailto:alex.huang-feng@insa-lyon.fr>
-               Thomas Graf
-               <mailto:thomas.graf@swisscom.com>";
-
-  description
-    "This module defines an extension to System Capability and YANG Push
-     Notification Capabilities model and provides additional
-     transport specific capabilities for YANG notifications.
-
-     Copyright (c) 2024 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
-
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
-     set forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (http://trustee.ietf.org/license-info).
-
-     This version of this YANG module is part of RFC XXXX;
-     see the RFC itself for full legal notices.";
-
-  revision 2024-10-14 {
-    description
-      "Initial revision.";
-    reference
-      "RFC XXXX: YANG Notifications Transport Capabilities";
-  }
-
-  identity security-protocol {
-    description
-      "Identity for security protocols.";
-  }
-
-  identity tls {
-    base security-protocol;
-    description
-      "Identity for TLS security protocol.";
-  }
-
-  identity dtls12 {
-    base security-protocol;
-    description
-      "Identity for DTLS 1.2 security protocol.";
-  }
-
-  identity dtls13 {
-    base security-protocol;
-    description
-      "Identity for DTLS 1.3 security protocol.";
-  }
-
-  identity ssh {
-    base security-protocol;
-    description
-      "Identity for ssh transport protocol.";
-  }
-
-  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
-    description
-      "Add system level capability.";
-    container transport-capabilities {
-      description
-        "Capabilities related to YANG-Push transports.";
-      list transport-capability {
-        key "transport-protocol";
-        description
-          "Capability list related to notification transport capabilities.";
-        leaf transport-protocol {
-          type identityref {
-            base sn:transport;
-          }
-          description
-            "Supported transport protocol for YANG-Push.";
-        }
-        leaf security-protocol {
-          type identityref {
-            base security-protocol;
-          }
-          description
-            "Type of secure transport.";
-        }
-        leaf-list encoding-format {
-          type identityref {
-            base sn:encoding;
-          }
-          description
-            "Supported encoding formats.";
-        }
-      }
-    }
-  }
-}
-]]></sourcecode>
+      <sourcecode markers="true"
+      name="ietf-notification-transport-capabilities@2024-10-14.yang"
+      type="yang">module ietf-notification-transport-capabilities {
+      yang-version 1.1; namespace
+      "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
+      prefix ntc; import ietf-subscribed-notifications { prefix sn; reference
+      "RFC 8639: Subscription to YANG Notifications"; } import
+      ietf-system-capabilities { prefix sysc; reference "RFC 9196: YANG
+      Modules Describing Capabilities for Systems and Datastore Update
+      Notifications"; } import ietf-notification-capabilities { prefix notc;
+      reference "RFC 9196: YANG Modules Describing Capabilities for Systems
+      and Datastore Update Notifications"; } organization "IETF NETCONF
+      (Network Configuration) Working Group"; contact "WG Web:
+      &lt;https://datatracker.ietf.org/group/netconf/&gt; WG List:
+      &lt;mailto:netconf@ietf.org&gt; Authors: Qin Wu
+      &lt;mailto:bill.wu@huawei.com&gt; Qiufang Ma
+      &lt;mailto:maqiufang1@huawei.com&gt; Alex Huang Feng
+      &lt;mailto:alex.huang-feng@insa-lyon.fr&gt; Thomas Graf
+      &lt;mailto:thomas.graf@swisscom.com&gt;"; description "This module
+      defines an extension to System Capability and YANG Push Notification
+      Capabilities model and provides additional transport specific
+      capabilities for YANG notifications. Copyright (c) 2024 IETF Trust and
+      the persons identified as authors of the code. All rights reserved.
+      Redistribution and use in source and binary forms, with or without
+      modification, is permitted pursuant to, and subject to the license terms
+      contained in, the Simplified BSD License set forth in Section 4.c of the
+      IETF Trust's Legal Provisions Relating to IETF Documents
+      (http://trustee.ietf.org/license-info). This version of this YANG module
+      is part of RFC XXXX; see the RFC itself for full legal notices.";
+      revision 2024-10-14 { description "Initial revision."; reference "RFC
+      XXXX: YANG Notifications Transport Capabilities"; } identity
+      security-protocol { description "Identity for security protocols."; }
+      identity tls { base security-protocol; description "Identity for TLS
+      security protocol."; } identity dtls12 { base security-protocol;
+      description "Identity for DTLS 1.2 security protocol."; } identity
+      dtls13 { base security-protocol; description "Identity for DTLS 1.3
+      security protocol."; } identity ssh { base security-protocol;
+      description "Identity for ssh transport protocol."; } augment
+      "/sysc:system-capabilities/notc:subscription-capabilities" { description
+      "Add system level capability."; container transport-capabilities {
+      description "Capabilities related to YANG-Push transports."; list
+      transport-capability { key "transport-protocol"; description "Capability
+      list related to notification transport capabilities."; leaf
+      transport-protocol { type identityref { base sn:transport; } description
+      "Supported transport protocol for YANG-Push."; } leaf security-protocol
+      { type identityref { base security-protocol; } description "Type of
+      secure transport."; } leaf-list encoding-format { type identityref {
+      base sn:encoding; } description "Supported encoding formats."; } } } }
+      }</sourcecode>
     </section>
 
     <section title="IANA Considerations">
@@ -356,12 +276,12 @@ module ietf-notification-transport-capabilities {
         made:</t>
 
         <figure>
-          <artwork>   URI:
+          <artwork><![CDATA[   URI:
       urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
    Registrant Contact:
       The IESG.
    XML:
-      N/A; the requested URI is an XML namespace.</artwork>
+      N/A; the requested URI is an XML namespace.]]></artwork>
         </figure>
       </section>
 
@@ -372,7 +292,7 @@ module ietf-notification-transport-capabilities {
         registration has been made:</t>
 
         <figure>
-          <artwork>   name:
+          <artwork><![CDATA[   name:
       ietf-notification-transport-capabilities
    namespace:
       urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
@@ -380,7 +300,7 @@ module ietf-notification-transport-capabilities {
       ntc
    reference:
       RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
-      this note.)</artwork>
+      this note.)]]></artwork>
         </figure>
       </section>
     </section>
@@ -410,7 +330,7 @@ module ietf-notification-transport-capabilities {
 
     <section title="Contributors">
       <figure>
-        <artwork>   Ran Tao
+        <artwork><![CDATA[   Ran Tao
    Huawei
    101 Software Avenue, Yuhua District
    Nanjing, Jiangsu 210012
@@ -436,7 +356,7 @@ module ietf-notification-transport-capabilities {
    32 Xuanwumen West St, Xicheng District
    Beijing 102209
    China
-   Email: wangw36@chinatelecom.cn</artwork>
+   Email: wangw36@chinatelecom.cn]]></artwork>
       </figure>
     </section>
   </middle>
@@ -491,43 +411,43 @@ module ietf-notification-transport-capabilities {
       transport capabilities of a hypothetical "acme-router".</t>
 
       <figure>
-        <artwork>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;instance-data-set xmlns=
-"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"&gt;
-  &lt;name&gt;acme-router-notification-capabilities&lt;/name&gt;
-  &lt;content-schema&gt;
-    &lt;module&gt;ietf-system-capabilities@2020-03-23&lt;/module&gt;
-    &lt;module&gt;ietf-notification-capabilities@2020-03-23&lt;/module&gt;
-    &lt;module&gt;ietf-notification-transport-capabilities@2024-10-14&lt;/module&gt;
-  &lt;/content-schema&gt;
-  &lt;!-- revision date, contact, etc. --&gt;
-  &lt;description&gt;Server Capability Discovery&lt;/description&gt;
-  &lt;content-data&gt;
-    &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
-      -capabilities"&gt;  
-      &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
-        f-notification-capabilities"&gt;  
-        &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
-          -notification-transport-capabilities"&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
-            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-              -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
-            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
-              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt; 
-        &lt;/transport-capabilities&gt; 
-      &lt;/subscription-capabilities&gt; 
-    &lt;/system-capabilities&gt; 
-  &lt;/content-data&gt;
-&lt;/instance-data-set&gt;</artwork>
+        <artwork><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<instance-data-set xmlns=
+"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data">
+  <name>acme-router-notification-capabilities</name>
+  <content-schema>
+    <module>ietf-system-capabilities@2020-03-23</module>
+    <module>ietf-notification-capabilities@2020-03-23</module>
+    <module>ietf-notification-transport-capabilities@2024-10-14</module>
+  </content-schema>
+  <!-- revision date, contact, etc. -->
+  <description>Server Capability Discovery</description>
+  <content-data>
+    <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
+      -capabilities">  
+      <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+        f-notification-capabilities">  
+        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+          -notification-transport-capabilities">  
+          <transport-capability> 
+            <transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
+            ietf-https-notif-transport">hnt:https</transport-protocol>  
+            <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+              -subscribed-notifications">sn:encode-xml</encoding-format>  
+            <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications">sn:encode-json</encoding-format> 
+          </transport-capability>  
+          <transport-capability> 
+            <transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
+            ietf-udp-notif-transport">unt:udp-notif</transport-protocol>  
+            <encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
+              f-udp-notif-transport">unt:encode-cbor</encoding-format> 
+          </transport-capability> 
+        </transport-capabilities> 
+      </subscription-capabilities> 
+    </system-capabilities> 
+  </content-data>
+</instance-data-set>]]></artwork>
       </figure>
 
       <t>In addition, the client could also query notification transport
@@ -535,53 +455,53 @@ module ietf-notification-transport-capabilities {
       request message to the the server to query from the server.</t>
 
       <figure>
-        <artwork> &lt;rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
-   &lt;get&gt;
-     &lt;filter type="subtree"&gt;
-     &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-syste\
-       m-capabilities"&gt;
-       &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ie\
-         tf-notification-capabilities"&gt;
-       &lt;transport-capabilities/&gt;
-       &lt;/subscription-capabilities&gt;
-     &lt;/system-capabilities&gt;
-    &lt;/filter&gt;
-   &lt;/get&gt;
- &lt;/rpc&gt;</artwork>
+        <artwork><![CDATA[ <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+   <get>
+     <filter type="subtree">
+     <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-syste\
+       m-capabilities">
+       <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ie\
+         tf-notification-capabilities">
+       <transport-capabilities/>
+       </subscription-capabilities>
+     </system-capabilities>
+    </filter>
+   </get>
+ </rpc>]]></artwork>
       </figure>
 
       <t>The server returns server data export capability using
       &lt;rpc-reply&gt; as follows:</t>
 
       <figure>
-        <artwork>&lt;rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
-  message-id="101"&gt;  
-  &lt;data&gt; 
-    &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
-      -capabilities"&gt;  
-      &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
-        f-notification-capabilities"&gt;  
-        &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
-          -notification-transport-capabilities"&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
-            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-            -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
-            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
-              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt; 
-        &lt;/transport-capabilities&gt; 
-      &lt;/subscription-capabilities&gt; 
-    &lt;/system-capabilities&gt; 
-  &lt;/data&gt; 
-&lt;/rpc-reply&gt;</artwork>
+        <artwork><![CDATA[<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
+  message-id="101">  
+  <data> 
+    <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
+      -capabilities">  
+      <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+        f-notification-capabilities">  
+        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+          -notification-transport-capabilities">  
+          <transport-capability> 
+            <transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
+            ietf-https-notif-transport">hnt:https</transport-protocol>  
+            <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+            -subscribed-notifications">sn:encode-xml</encoding-format>  
+            <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications">sn:encode-json</encoding-format> 
+          </transport-capability>  
+          <transport-capability> 
+            <transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
+            ietf-udp-notif-transport">unt:udp-notif</transport-protocol>  
+            <encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
+              f-udp-notif-transport">unt:encode-cbor</encoding-format> 
+          </transport-capability> 
+        </transport-capabilities> 
+      </subscription-capabilities> 
+    </system-capabilities> 
+  </data> 
+</rpc-reply>]]></artwork>
       </figure>
     </section>
   </back>
