@@ -159,7 +159,7 @@
         14 [RFC2119] [RFC8174] when, and only when, they appear in all
         capitals, as shown here.</t>
 		
-		<t>The terms "suscriber", "publisher", and "receiver" are used as
+		<t>The terms "subscriber", "publisher", and "receiver" are used as
 		defined in <xref target="RFC8639"/>.</t>
 		
 		<t>The terms "client", and "server" are used as defined in <xref
@@ -443,7 +443,7 @@ module ietf-notification-transport-capabilities {
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Mohamed Boucadair
-	  for his review and valuable comments.</t>
+	  and Kent Watson for their review and valuable comments.</t>
     </section>
   </middle>
 

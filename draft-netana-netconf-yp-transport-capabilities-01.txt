@@ -129,7 +129,7 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   The terms "suscriber", "publisher", and "receiver" are used as
+   The terms "subscriber", "publisher", and "receiver" are used as
    defined in [RFC8639].
 
    The terms "client", and "server" are used as defined in [RFC8342].
@@ -435,8 +435,8 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 7.  Acknowledgements
 
-   The authors would like to thank Mohamed Boucadair for his review and
-   valuable comments.
+   The authors would like to thank Mohamed Boucadair and Kent Watson for
+   their review and valuable comments.
 
 8.  References
 
