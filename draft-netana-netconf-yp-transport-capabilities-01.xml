@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,               
+    which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.             
+    There has to be one entity for each item to be referenced.                    
+    An alternate method (rfc include) is described in the references. -->
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2697 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2697.xml">
+<!ENTITY RFC2698 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2698.xml">
+<!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc tocompact="yes"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="std" docName="draft-netana-netconf-yp-transport-capabilities-00"
+     ipr="trust200902">
+  <front>
+    <title abbrev="YANG Notification Transport Capabilities">YANG Notification Transport Capabilities</title>
+
+    <author fullname="Qin Wu" initials="Q." surname="Wu">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street>101 Software Avenue, Yuhua District</street>
+
+          <city>Nanjing</city>
+
+          <region>Jiangsu</region>
+
+          <code>210012</code>
+
+          <country>China</country>
+        </postal>
+
+        <email>bill.wu@huawei.com</email>
+      </address>
+    </author>
+
+    <author fullname="Qiufang Ma" initials="Q." surname="Ma">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street>101 Software Avenue, Yuhua District</street>
+
+          <city>Nanjing</city>
+
+          <region>Jiangsu</region>
+
+          <code>210012</code>
+
+          <country>China</country>
+        </postal>
+
+        <email>maqiufang1@huawei.com</email>
+      </address>
+    </author>
+
+    <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
+      <organization>INSA-Lyon</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Lyon</city>
+
+          <region/>
+
+          <code/>
+
+          <country>France</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>alex.huang-feng@insa-lyon.fr</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Thomas Graf" initials="T" surname="Graf">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>thomas.graf@swisscom.com</email>
+      </address>
+    </author>
+
+    <date day="05" month="January" year="2025"/>
+
+    <area>OPS Area</area>
+
+    <workgroup>NETCONF Working Group</workgroup>
+
+    <abstract>
+      <t>This document specifies a YANG module for YANG notifications transport
+      capabilities which augments "ietf-system-capabilities" YANG module
+	  defined in <xref target="RFC9196"/>. The module provides transport,
+	  encoding, and encryption system capabilities for transport-specific
+	  notification. This YANG module can be used by the client to learn
+	  capability information from the server at runtime or at implementation
+	  time, by making use of the YANG instance data file format.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section anchor="intro" title="Introduction">
+      <t>The notification capabilities model
+      allows a client to discover a set of capabilities supported by a
+      server (e.g., basic system capabilities and YANG-Push related
+      capabilities) both at implementation time and at runtime. These
+      capabilities allow a client to adjust its behavior to take advantage
+      of the features exposed by the server.</t>
+
+      <t>However, clients and  servers may still support various different
+      transport specific parameters (e.g., transport protocol, encoding
+      format or encryption). As described in <xref section="3.1"
+      sectionFormat="of" target="RFC8641"/>, a simple negotiation (e.g.,
+      inserting hints into error responses to a failed RPC request) between
+      subscribers and publishers for subscription parameters increases the
+      likelihood of success for subsequent RPC requests, but not guaranteed,
+      which may cause unexpected failure or additional message exchange
+      between client and server.</t>
+
+      <t>This document defines a more deterministic solution that relies
+	  upon a YANG module for YANG notifications transport capabilities that
+	  is built on top of <xref target="RFC9196"/>. The module can be used by
+	  a client to discover capability information from a server at runtime
+	  or at implementation time, by making use of the YANG instance data file
+      format.</t>
+
+      <section title="Terminology">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described in BCP
+        14 [RFC2119] [RFC8174] when, and only when, they appear in all
+        capitals, as shown here.</t>
+		
+		<t>The terms "suscriber", "publisher", and "receiver" are used as
+		defined in <xref target="RFC8639"/>.</t>
+		
+		<t>The terms "client", and "server" are used as defined in <xref
+		target="RFC8342"/>.</t>		
+      </section>
+    </section>
+
+    <!-- intro -->
+
+    <section title="Capabilities for Systems and Datastore Update Notifications">
+      <t><xref section="3.1"
+      sectionFormat="of" target="RFC8641"/> lists the server capabilities related
+	  to YANG-Push that are supported in the YANG module
+	  "ietf-notification-capabilities".</t>
+
+      <t>These server capabilities are transport independent, session level
+      capabilities. They can be provided either at the implementation time or
+      reported at runtime.</t>
+
+      <t>This document provides
+      additional transport related attributes associated with system
+      capabilities:<list style="symbols">
+          <t>Specification of transport protocols that a client can request to
+          establish an HTTPS-based <xref
+          target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
+          target="I-D.ietf-netconf-udp-notif"/> configured transport
+          connection.</t>
+
+          <t>Specification of transport encoding, such as JSON or XML as
+          defined in <xref target="RFC8040"/> or CBOR as defined in <xref
+          target="RFC9254"/> the client can request to encode YANG
+          notifications;</t>
+
+          <t>Specification of secure transport mechanisms that are needed by
+          a client to communicate with a server such as DTLS 
+          <xref target="RFC9147"/>, TLS <xref target="RFC8446"/>, or SSH
+		  <xref target="RFC4254"/>.</t>
+		  
+		  <t>To that aim, the model defined in this document augments the System Capabilities model<xref target="RFC9196"/>.</t>
+        </list></t>
+
+      <section title="Tree Diagram">
+        <t>The following tree diagram <xref target="RFC8340"/> provides an
+        overview of the data model.</t>
+
+                <sourcecode type="yangtree"><![CDATA[
+module: ietf-notification-transport-capabilities
+
+  augment /sysc:system-capabilities/notc:subscription-capabilities:
+    +--ro transport-capabilities
+       +--ro transport-capability* [transport-protocol]
+          +--ro transport-protocol    identityref
+          +--ro security-protocol?    identityref
+          +--ro encoding-format*      identityref
+]]></sourcecode>
+      </section>
+    </section>
+
+    <section title="YANG Module">
+      <sourcecode type="yang" markers="true" name="ietf-notification-transport-capabilities@2025-01-05.yang"><![CDATA[
+module ietf-notification-transport-capabilities {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
+  prefix ntc;
+
+  import ietf-subscribed-notifications {
+    prefix sn;
+    reference
+      "RFC 8639: Subscription to YANG Notifications";
+  }
+  import ietf-system-capabilities {
+    prefix sysc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  import ietf-notification-capabilities {
+    prefix notc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  
+  organization "IETF NETCONF (Network Configuration) Working Group";
+  contact
+    "WG Web:   <https://datatracker.ietf.org/group/netconf/>
+     WG List:  <mailto:netconf@ietf.org>
+
+     Authors:  Qin Wu
+               <mailto:bill.wu@huawei.com>
+               Qiufang Ma
+               <mailto:maqiufang1@huawei.com>
+               Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Thomas Graf
+               <mailto:thomas.graf@swisscom.com>";
+
+  description
+    "This module defines an extension to YANG-Push
+     Notification Capabilities model that provides additional
+     transport specific capabilities for YANG notifications.
+
+     Copyright (c) 2024 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX;
+     see the RFC itself for full legal notices.";
+
+  revision 2025-01-05 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: YANG Notifications Transport Capabilities";
+  }
+
+  identity security-protocol {
+    description
+      "Identity for security protocols.";
+  }
+
+  identity tls {
+    base security-protocol;
+    description
+      "Indicates TLS.";
+  }
+
+  identity dtls12 {
+    base security-protocol;
+    description
+      "Indicates DTLS 1.2.";
+  }
+
+  identity dtls13 {
+    base security-protocol;
+    description
+      "Indicates DTLS 1.3.";
+  }
+
+  identity ssh {
+    base security-protocol;
+    description
+      "Indicates SSH.";
+  }
+
+  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
+    description
+      "Adds system level capabilities.";
+    container transport-capabilities {
+      description
+        "Specifies capabilities related to YANG-Push transports.";
+      list transport-capability {
+        key "transport-protocol";
+        description
+          "Indicates a list of capabilities related to notification
+		  transport.";
+        leaf transport-protocol {
+          type identityref {
+            base sn:transport;
+          }
+          description
+            "Indicates supported transport protocol for YANG-Push.";
+        }
+        leaf security-protocol {
+          type identityref {
+            base security-protocol;
+          }
+          description
+            "Indicates transport security protocol.";
+        }
+        leaf-list encoding-format {
+          type identityref {
+            base sn:encoding;
+          }
+          description
+            "Indicates supported encoding formats.";
+        }
+      }
+    }
+  }
+}
+]]></sourcecode>
+    </section>
+
+    <section title="IANA Considerations">
+      <section anchor="xml" title="Updates to the IETF XML Registry">
+        <t>This document registers a URI in the "IETF XML Registry" [RFC3688].
+        Following the format in [RFC3688], the following registration has been
+        made:</t>
+
+        <figure>
+          <artwork>   URI:
+      urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
+   Registrant Contact:
+      The IESG.
+   XML:
+      N/A; the requested URI is an XML namespace.</artwork>
+        </figure>
+      </section>
+
+      <section anchor="module"
+               title="Updates to the YANG Module Names Registry">
+        <t>This document registers one YANG module in the "YANG Module Names"
+        registry [RFC6020]. Following the format in [RFC6020], the following
+        registration has been made:</t>
+
+        <figure>
+          <artwork>   name:
+      ietf-notification-transport-capabilities
+   namespace:
+      urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
+   prefix:
+      ntc
+   reference:
+      RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+      this note.)</artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section anchor="security" title="Security Considerations">
+      <t>This section is modeled after the template described in <xref
+      section="3.7" sectionFormat="of"
+      target="I-D.ietf-netmod-rfc8407bis"/></t>
+
+      <t>The "ietf-notification-transport-capabilities" YANG module defines a
+      data model that is designed to be accessed via YANG-based management
+      protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF <xref
+      target="RFC8040"/>. These protocols have to use a secure transport layer
+      (e.g., SSH <xref target="RFC4252"/>, TLS <xref target="RFC8446"/>, and
+      QUIC <xref target="RFC9000"/>) and have to use mutual
+      authentication.</t>
+
+      <t>The Network Configuration Access Control Model (NACM) <xref
+      target="RFC8341"/> provides the means to restrict access for particular
+      NETCONF or RESTCONF users to a preconfigured subset of all available
+      NETCONF or RESTCONF protocol operations and content.</t>
+
+      <t>All protocol-accessible data nodes are read-only and cannot be
+      modified. The data in the module is not security sensitive. It inherits
+      all the security considerations of <xref target="RFC9196"/>.</t>
+    </section>
+
+    <section title="Contributors">
+      <figure>
+        <artwork>   Ran Tao
+   Huawei
+   101 Software Avenue, Yuhua District
+   Nanjing, Jiangsu 210012
+   China
+   Email: taoran20@huawei.com
+
+   Liang Geng
+   China Mobile
+   32 Xuanwumen West St, Xicheng District
+   Beijing 10053
+   China
+   Email: gengliang@chinamobile.com
+
+   Peng Liu
+   China Mobile
+   Beiqijia Town, Changping District
+   Beijing 10053
+   China
+   Email: liupengyjy@chinamobile.com
+
+   Wei Wang
+   China Telecom
+   32 Xuanwumen West St, Xicheng District
+   Beijing 102209
+   China
+   Email: wangw36@chinatelecom.cn</artwork>
+      </figure>
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The authors would like to thank Mohamed Boucadair
+	  for his review and valuable comments.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119.xml"?>
+
+      <?rfc include="reference.RFC.8174.xml"?>
+
+      <?rfc include="reference.RFC.4254.xml"?>
+
+      <?rfc include="reference.RFC.6241.xml"?>
+
+      <?rfc include="reference.RFC.6242.xml"?>
+
+      <?rfc include="reference.RFC.8040.xml"?>
+
+      <?rfc include="reference.RFC.8341.xml"?>
+
+      <?rfc include="reference.RFC.8342.xml"?>
+
+      <?rfc include="reference.RFC.8446.xml"?>
+
+      <?rfc include="reference.RFC.8639.xml"?>
+
+      <?rfc include="reference.RFC.8641.xml"?>
+
+      <?rfc include="reference.RFC.9147.xml"?>
+
+      <?rfc include="reference.RFC.9196.xml"?>
+
+      <?rfc include="reference.RFC.9254.xml"?>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include="reference.RFC.3688.xml"?>
+
+      <?rfc include="reference.RFC.4252.xml"?>
+
+      <?rfc include="reference.RFC.6020.xml"?>
+
+      <?rfc include="reference.RFC.8340.xml"?>
+
+      <?rfc include="reference.RFC.9000.xml"?>
+
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-udp-notif.xml"?>
+
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-https-notif.xml"?>
+
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"?>
+    </references>
+
+    <section title="Usage Example of interaction with UDP-Notif and HTTPS-Notif for Configured Subscription">
+      <t>The following instance-data example describes the notification
+      transport capabilities of a hypothetical "acme-router".</t>
+
+      <figure>
+        <artwork>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;instance-data-set xmlns=
+"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"&gt;
+  &lt;name&gt;acme-router-notification-capabilities&lt;/name&gt;
+  &lt;content-schema&gt;
+    &lt;module&gt;ietf-system-capabilities@2020-03-23&lt;/module&gt;
+    &lt;module&gt;ietf-notification-capabilities@2020-03-23&lt;/module&gt;
+    &lt;module&gt;ietf-notification-transport-capabilities@2024-10-14&lt;/module&gt;
+  &lt;/content-schema&gt;
+  &lt;!-- revision date, contact, etc. --&gt;
+  &lt;description&gt;Server Capability Discovery&lt;/description&gt;
+  &lt;content-data&gt;
+    &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
+      -capabilities"&gt;  
+      &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+        f-notification-capabilities"&gt;  
+        &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+          -notification-transport-capabilities"&gt;  
+          &lt;transport-capability&gt; 
+            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
+            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
+            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+              -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
+            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
+          &lt;/transport-capability&gt;  
+          &lt;transport-capability&gt; 
+            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
+            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
+            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
+              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
+          &lt;/transport-capability&gt; 
+        &lt;/transport-capabilities&gt; 
+      &lt;/subscription-capabilities&gt; 
+    &lt;/system-capabilities&gt; 
+  &lt;/content-data&gt;
+&lt;/instance-data-set&gt;</artwork>
+      </figure>
+
+      <t>In addition, the client could also query notification transport
+      capabilities from the server. For example, the client sends &lt;get&gt;
+      request message to the the server to query from the server.</t>
+
+      <figure>
+        <artwork> &lt;rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"&gt;
+   &lt;get&gt;
+     &lt;filter type="subtree"&gt;
+     &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-syste\
+       m-capabilities"&gt;
+       &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ie\
+         tf-notification-capabilities"&gt;
+       &lt;transport-capabilities/&gt;
+       &lt;/subscription-capabilities&gt;
+     &lt;/system-capabilities&gt;
+    &lt;/filter&gt;
+   &lt;/get&gt;
+ &lt;/rpc&gt;</artwork>
+      </figure>
+
+      <t>The server returns server data export capability using
+      &lt;rpc-reply&gt; as follows:</t>
+
+      <figure>
+        <artwork>&lt;rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
+  message-id="101"&gt;  
+  &lt;data&gt; 
+    &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
+      -capabilities"&gt;  
+      &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+        f-notification-capabilities"&gt;  
+        &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+          -notification-transport-capabilities"&gt;  
+          &lt;transport-capability&gt; 
+            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
+            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
+            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+            -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
+            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
+          &lt;/transport-capability&gt;  
+          &lt;transport-capability&gt; 
+            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
+            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
+            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
+              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
+          &lt;/transport-capability&gt; 
+        &lt;/transport-capabilities&gt; 
+      &lt;/subscription-capabilities&gt; 
+    &lt;/system-capabilities&gt; 
+  &lt;/data&gt; 
+&lt;/rpc-reply&gt;</artwork>
+      </figure>
+    </section>
+  </back>
+</rfc>
