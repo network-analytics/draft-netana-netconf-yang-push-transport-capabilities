@@ -13,7 +13,7 @@ Expires: 18 July 2025                                      A. Huang Feng
 
 
                 YANG Notification Transport Capabilities
-           draft-netana-netconf-yp-transport-capabilities-00
+           draft-netana-netconf-yp-transport-capabilities-01
 
 Abstract
 
