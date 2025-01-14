@@ -53,7 +53,7 @@ module ietf-notification-transport-capabilities {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2025-01-05 {
+  revision 2025-01-14 {
     description
       "Initial revision.";
     reference
