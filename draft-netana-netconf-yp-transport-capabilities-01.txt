@@ -5,11 +5,11 @@
 NETCONF Working Group                                              Q. Wu
 Internet-Draft                                                     Q. Ma
 Intended status: Standards Track                                  Huawei
-Expires: 9 July 2025                                       A. Huang Feng
+Expires: 18 July 2025                                      A. Huang Feng
                                                                INSA-Lyon
                                                                  T. Graf
                                                                 Swisscom
-                                                          5 January 2025
+                                                         14 January 2025
 
 
                 YANG Notification Transport Capabilities
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 July 2025.
+   This Internet-Draft will expire on 18 July 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Wu, et al.                 Expires 9 July 2025                  [Page 1]
+Wu, et al.                Expires 18 July 2025                  [Page 1]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -78,15 +78,15 @@ Table of Contents
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Updates to the IETF XML Registry  . . . . . . . . . . . .   7
      4.2.  Updates to the YANG Module Names Registry . . . . . . . .   7
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    6.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .   8
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  10
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
    Appendix A.  Usage Example of interaction with UDP-Notif and
-           HTTPS-Notif for Configured Subscription . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+           HTTPS-Notif for Configured Subscription . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Wu, et al.                 Expires 9 July 2025                  [Page 2]
+Wu, et al.                Expires 18 July 2025                  [Page 2]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -157,18 +157,21 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
       can request to encode YANG notifications;
 
    *  Specification of secure transport mechanisms that are needed by a
-      client to communicate with a server such as DTLS [RFC9147], TLS
-      [RFC8446], or SSH [RFC4254].
-
-   *  To that aim, the model defined in this document augments the
-      System Capabilities model[RFC9196].
+      client to communicate with a server such as DTLS 1.2 [RFC6347],
+      DTLS 1.3 [RFC9147], TLS 1.2 [RFC5246], TLS 1.3 [RFC8446], or SSH
+      [RFC4254].
 
 
 
-Wu, et al.                 Expires 9 July 2025                  [Page 3]
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 3]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
+
+   *  To that aim, the model defined in this document augments the
+      System Capabilities model[RFC9196].
 
 2.1.  Tree Diagram
 
@@ -187,7 +190,7 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 3.  YANG Module
 
    <CODE BEGINS>
-     file "ietf-notification-transport-capabilities@2025-01-05.yang"
+     file "ietf-notification-transport-capabilities@2025-01-14.yang"
    module ietf-notification-transport-capabilities {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
@@ -216,16 +219,15 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
        "WG Web:   <https://datatracker.ietf.org/group/netconf/>
         WG List:  <mailto:netconf@ietf.org>
 
-        Authors:  Qin Wu
-                  <mailto:bill.wu@huawei.com>
 
 
-
-Wu, et al.                 Expires 9 July 2025                  [Page 4]
+Wu, et al.                Expires 18 July 2025                  [Page 4]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 
+        Authors:  Qin Wu
+                  <mailto:bill.wu@huawei.com>
                   Qiufang Ma
                   <mailto:maqiufang1@huawei.com>
                   Alex Huang Feng
@@ -263,29 +265,49 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
          "Identity for security protocols.";
      }
 
-     identity tls {
+     identity tls12 {
        base security-protocol;
        description
-         "Indicates TLS.";
+         "Indicates TLS Protocol Version 1.2. TLS 1.2 is obsolete,
+          and thus it is NOT RECOMMENDED to enable this feature.";
+       reference
+         "RFC 5246: The Transport Layer Security (TLS) Protocol
+                    Version 1.2";
+     }
+
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 5]
+
+Internet-Draft  YANG Notification Transport Capabilities    January 2025
+
+
+     identity tls13 {
+       base security-protocol;
+       description
+         "Indicates TLS Protocol Version 1.3.";
+       reference
+         "RFC 8446: The Transport Layer Security (TLS)
+                    Protocol Version 1.3";
      }
 
      identity dtls12 {
        base security-protocol;
        description
-         "Indicates DTLS 1.2.";
+         "Indicates DTLS Protocol Version 1.2. TLS 1.2 is obsolete,
+          and thus it is NOT RECOMMENDED to enable this feature.";
+       reference
+         "RFC 6347: The Datagram Transport Layer Security (TLS) Protocol
+                    Version 1.2";
      }
-
-
-
-Wu, et al.                 Expires 9 July 2025                  [Page 5]
-
-Internet-Draft  YANG Notification Transport Capabilities    January 2025
-
 
      identity dtls13 {
        base security-protocol;
        description
-         "Indicates DTLS 1.3.";
+         "Indicates DTLS Protocol Version 1.3.";
+       reference
+         "RFC 9147: The Datagram Transport Layer Security (TLS)
+                    Protocol Version 1.3";
      }
 
      identity ssh {
@@ -308,6 +330,14 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
            leaf transport-protocol {
              type identityref {
                base sn:transport;
+
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 6]
+
+Internet-Draft  YANG Notification Transport Capabilities    January 2025
+
+
              }
              description
                "Indicates supported transport protocol for YANG-Push.";
@@ -330,14 +360,6 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
        }
      }
    }
-
-
-
-Wu, et al.                 Expires 9 July 2025                  [Page 6]
-
-Internet-Draft  YANG Notification Transport Capabilities    January 2025
-
-
    <CODE ENDS>
 
 4.  IANA Considerations
@@ -361,6 +383,17 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
    registry [RFC6020].  Following the format in [RFC6020], the following
    registration has been made:
 
+
+
+
+
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 7]
+
+Internet-Draft  YANG Notification Transport Capabilities    January 2025
+
+
    name:
       ietf-notification-transport-capabilities
    namespace:
@@ -383,17 +416,6 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
    TLS [RFC8446], and QUIC [RFC9000]) and have to use mutual
    authentication.
 
-
-
-
-
-
-
-Wu, et al.                 Expires 9 July 2025                  [Page 7]
-
-Internet-Draft  YANG Notification Transport Capabilities    January 2025
-
-
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
@@ -404,6 +426,29 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
    inherits all the security considerations of [RFC9196].
 
 6.  Contributors
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 8]
+
+Internet-Draft  YANG Notification Transport Capabilities    January 2025
+
 
       Ran Tao
       Huawei
@@ -442,14 +487,6 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 8.1.  Normative References
 
-
-
-
-Wu, et al.                 Expires 9 July 2025                  [Page 8]
-
-Internet-Draft  YANG Notification Transport Capabilities    January 2025
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -459,6 +496,21 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
               Connection Protocol", RFC 4254, DOI 10.17487/RFC4254,
               January 2006, <https://www.rfc-editor.org/info/rfc4254>.
 
+
+
+
+
+
+Wu, et al.                Expires 18 July 2025                  [Page 9]
+
+Internet-Draft  YANG Notification Transport Capabilities    January 2025
+
+
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246,
+              DOI 10.17487/RFC5246, August 2008,
+              <https://www.rfc-editor.org/info/rfc5246>.
+
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -467,6 +519,10 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
               <https://www.rfc-editor.org/info/rfc6242>.
+
+   [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
+              Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
+              January 2012, <https://www.rfc-editor.org/info/rfc6347>.
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
@@ -501,7 +557,7 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 
 
-Wu, et al.                 Expires 9 July 2025                  [Page 9]
+Wu, et al.                Expires 18 July 2025                 [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -535,9 +591,9 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
               Zheng, G., Zhou, T., Graf, T., Francois, P., Feng, A. H.,
               and P. Lucente, "UDP-based Transport for Configured
               Subscriptions", Work in Progress, Internet-Draft, draft-
-              ietf-netconf-udp-notif-17, 1 December 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
-              udp-notif-17>.
+              ietf-netconf-udp-notif-18, 14 January 2025,
+              <https://datatracker.ietf.org/api/v1/doc/document/draft-
+              ietf-netconf-udp-notif/>.
 
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
@@ -557,7 +613,7 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 
 
-Wu, et al.                 Expires 9 July 2025                 [Page 10]
+Wu, et al.                Expires 18 July 2025                 [Page 11]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -613,7 +669,7 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
 
 
-Wu, et al.                 Expires 9 July 2025                 [Page 11]
+Wu, et al.                Expires 18 July 2025                 [Page 12]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -669,7 +725,7 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 
 
-Wu, et al.                 Expires 9 July 2025                 [Page 12]
+Wu, et al.                Expires 18 July 2025                 [Page 13]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -725,7 +781,7 @@ Authors' Addresses
 
 
 
-Wu, et al.                 Expires 9 July 2025                 [Page 13]
+Wu, et al.                Expires 18 July 2025                 [Page 14]
 
 Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
@@ -781,4 +837,4 @@ Internet-Draft  YANG Notification Transport Capabilities    January 2025
 
 
 
-Wu, et al.                 Expires 9 July 2025                 [Page 14]
+Wu, et al.                Expires 18 July 2025                 [Page 15]

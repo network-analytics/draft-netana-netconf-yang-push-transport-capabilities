@@ -65,22 +65,42 @@ module ietf-notification-transport-capabilities {
       "Identity for security protocols.";
   }
 
-  identity tls {
+  identity tls12 {
     base security-protocol;
     description
-      "Indicates TLS.";
+      "Indicates TLS Protocol Version 1.2. TLS 1.2 is obsolete,
+       and thus it is NOT RECOMMENDED to enable this feature.";
+    reference
+      "RFC 5246: The Transport Layer Security (TLS) Protocol
+                 Version 1.2";
+  }
+
+  identity tls13 {
+    base security-protocol;
+    description
+      "Indicates TLS Protocol Version 1.3.";
+    reference
+      "RFC 8446: The Transport Layer Security (TLS)
+                 Protocol Version 1.3";
   }
 
   identity dtls12 {
     base security-protocol;
     description
-      "Indicates DTLS 1.2.";
+      "Indicates DTLS Protocol Version 1.2. TLS 1.2 is obsolete,
+       and thus it is NOT RECOMMENDED to enable this feature.";
+    reference
+      "RFC 6347: The Datagram Transport Layer Security (TLS) Protocol
+                 Version 1.2";
   }
 
   identity dtls13 {
     base security-protocol;
     description
-      "Indicates DTLS 1.3.";
+      "Indicates DTLS Protocol Version 1.3.";
+    reference
+      "RFC 9147: The Datagram Transport Layer Security (TLS)
+                 Protocol Version 1.3";
   }
 
   identity ssh {
