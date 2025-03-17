@@ -5,15 +5,15 @@
 NETCONF Working Group                                              Q. Wu
 Internet-Draft                                                     Q. Ma
 Intended status: Standards Track                                  Huawei
-Expires: 17 September 2025                                 A. Huang Feng
+Expires: 18 September 2025                                 A. Huang Feng
                                                                INSA-Lyon
                                                                  T. Graf
                                                                 Swisscom
-                                                           16 March 2025
+                                                           17 March 2025
 
 
                 YANG Notification Transport Capabilities
-            draft-ietf-netconf-yp-transport-capabilities-00
+            draft-ietf-netconf-yp-transport-capabilities-01
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 September 2025.
+   This Internet-Draft will expire on 18 September 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 1]
+Wu, et al.              Expires 18 September 2025               [Page 1]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 2]
+Wu, et al.              Expires 18 September 2025               [Page 2]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -165,7 +165,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 3]
+Wu, et al.              Expires 18 September 2025               [Page 3]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -221,7 +221,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 4]
+Wu, et al.              Expires 18 September 2025               [Page 4]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -277,7 +277,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 5]
+Wu, et al.              Expires 18 September 2025               [Page 5]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -333,7 +333,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 6]
+Wu, et al.              Expires 18 September 2025               [Page 6]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -389,7 +389,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 7]
+Wu, et al.              Expires 18 September 2025               [Page 7]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -445,7 +445,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 8]
+Wu, et al.              Expires 18 September 2025               [Page 8]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -501,7 +501,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025               [Page 9]
+Wu, et al.              Expires 18 September 2025               [Page 9]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -557,7 +557,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 10]
+Wu, et al.              Expires 18 September 2025              [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -613,7 +613,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 11]
+Wu, et al.              Expires 18 September 2025              [Page 11]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -669,7 +669,7 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 12]
+Wu, et al.              Expires 18 September 2025              [Page 12]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -725,7 +725,7 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 13]
+Wu, et al.              Expires 18 September 2025              [Page 13]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -781,7 +781,7 @@ Authors' Addresses
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 14]
+Wu, et al.              Expires 18 September 2025              [Page 14]
 
 Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
@@ -837,4 +837,4 @@ Internet-Draft  YANG Notification Transport Capabilities      March 2025
 
 
 
-Wu, et al.              Expires 17 September 2025              [Page 15]
+Wu, et al.              Expires 18 September 2025              [Page 15]
