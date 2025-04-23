@@ -116,19 +116,16 @@ module ietf-notification-transport-capabilities {
             "Indicates supported transport protocol for YANG-Push.";
         }
         leaf-list security-protocol {
-          type identityref {
-            base security-protocol;
-            base tlscmn:tls-version-base;
+          type union {
+        	  type identityref {
+              base security-protocol;
+        		}
+        	  type identityref {		
+              base tlscmn:tls-version-base;
+        		}
           }
           description
             "Indicates transport security protocol.";
-        }
-        leaf-list encoding-format {
-          type identityref {
-            base sn:encoding;
-          }
-          description
-            "Indicates supported encoding formats.";
         }
       }
     }
