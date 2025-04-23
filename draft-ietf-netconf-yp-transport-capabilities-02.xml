@@ -214,7 +214,7 @@ module: ietf-notification-transport-capabilities
     +--ro transport-capabilities
        +--ro transport-capability* [transport-protocol]
           +--ro transport-protocol    identityref
-          +--ro security-protocol*    identityref
+          +--ro security-protocol*    union
           +--ro encoding-format*      identityref
 ]]></sourcecode>
       </section>
