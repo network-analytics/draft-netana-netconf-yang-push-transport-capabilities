@@ -127,6 +127,13 @@ module ietf-notification-transport-capabilities {
           description
             "Indicates transport security protocol.";
         }
+        leaf-list encoding-format {
+          type identityref {
+            base sn:encoding;
+          }
+          description
+            "Indicates supported encoding formats.";
+        }
       }
     }
   }

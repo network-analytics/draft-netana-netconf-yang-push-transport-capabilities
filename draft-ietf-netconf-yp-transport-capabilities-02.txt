@@ -328,8 +328,8 @@ Internet-Draft  YANG Notification Transport Capabilities      April 2025
                "Indicates supported transport protocol for YANG-Push.";
            }
            leaf-list security-protocol {
-             type identityref {
-               base security-protocol;
+             type union {
+                     type identityref {
 
 
 
@@ -338,7 +338,11 @@ Wu, et al.               Expires 24 October 2025                [Page 6]
 Internet-Draft  YANG Notification Transport Capabilities      April 2025
 
 
-               base tlscmn:tls-version-base;
+                 base security-protocol;
+                           }
+                     type identityref {
+                 base tlscmn:tls-version-base;
+                           }
              }
              description
                "Indicates transport security protocol.";
@@ -377,6 +381,19 @@ Internet-Draft  YANG Notification Transport Capabilities      April 2025
    registry [RFC6020].  Following the format in [RFC6020], the following
    registration has been made:
 
+
+
+
+
+
+
+
+
+Wu, et al.               Expires 24 October 2025                [Page 7]
+
+Internet-Draft  YANG Notification Transport Capabilities      April 2025
+
+
    name:
       ietf-notification-transport-capabilities
    namespace:
@@ -386,13 +403,6 @@ Internet-Draft  YANG Notification Transport Capabilities      April 2025
    reference:
       RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
       this note.)
-
-
-
-Wu, et al.               Expires 24 October 2025                [Page 7]
-
-Internet-Draft  YANG Notification Transport Capabilities      April 2025
-
 
 5.  Implementation Status
 
@@ -430,16 +440,6 @@ Internet-Draft  YANG Notification Transport Capabilities      April 2025
    inherits all the security considerations of [RFC9196].
 
 7.  Contributors
-
-
-
-
-
-
-
-
-
-
 
 
 
