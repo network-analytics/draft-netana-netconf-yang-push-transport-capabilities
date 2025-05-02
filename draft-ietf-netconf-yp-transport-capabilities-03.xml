@@ -602,33 +602,41 @@ module ietf-notification-transport-capabilities {
       &lt;rpc-reply&gt; as follows:</t>
 
       <figure>
-        <artwork>&lt;rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
-  message-id="101"&gt;  
-  &lt;data&gt; 
-    &lt;system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
-      -capabilities"&gt;  
-      &lt;subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
-        f-notification-capabilities"&gt;  
-        &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
-          -notification-transport-capabilities"&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
-            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-            -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt;  
-          &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
-            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
-              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
-          &lt;/transport-capability&gt; 
-        &lt;/transport-capabilities&gt; 
-      &lt;/subscription-capabilities&gt; 
-    &lt;/system-capabilities&gt; 
-  &lt;/data&gt; 
+      <artwork>&lt;rpc-reply 
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+  xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+  xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+  xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-notification-transport-cap\
+  abilities"
+  xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+  xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
+  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+  message-id="101"&gt;
+  &lt;data&gt;
+    &lt;sc:system-capabilities&gt;
+      &lt;nc:subscription-capabilities&gt;
+        &lt;transport-capabilities
+         xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-transport\
+         -capabilities"&gt;
+          &lt;transport-capability&gt;
+            &lt;transport-protocol&gt;hnt:https&lt;/transport-protocol&gt;
+            &lt;encoding-format&gt;sn:encode-xml&lt;/encoding-format&gt;
+            &lt;encoding-format&gt;sn:encode-json&lt;/encoding-format&gt;
+            &lt;security-protocol&gt;tlscmn:tls12&lt;/security-protocol&gt;
+            &lt;security-protocol&gt;tlscmn:tls13&lt;/security-protocol&gt;
+          &lt;/transport-capability&gt;
+          &lt;transport-capability&gt;
+            &lt;transport-protocol&gt;unt:udp-notif&lt;/transport-protocol&gt;
+            &lt;encoding-format&gt;unt:encode-cbor&lt;/encoding-format&gt;
+            &lt;encoding-format&gt;sn:encode-json&lt;/encoding-format&gt;
+            &lt;security-protocol&gt;dtls12&lt;/security-protocol&gt;
+            &lt;security-protocol&gt;dtls13&lt;/security-protocol&gt;
+          &lt;/transport-capability&gt;
+        &lt;/transport-capabilities&gt;
+      &lt;/nc:subscription-capabilities&gt;
+    &lt;/sc:system-capabilities&gt;
+  &lt;/data&gt;
 &lt;/rpc-reply&gt;</artwork>
       </figure>
     </section>
