@@ -372,7 +372,7 @@ Internet-Draft  YANG Notification Transport Capabilities        May 2025
 4.2.  Updates to the YANG Module Names Registry
 
    This document registers one YANG module in the "YANG Module Names"
-   registry [RFC6020].  Following the format in [RFC3688], the following
+   registry [RFC6020].  Following the format in [RFC6020], the following
    registration has been made:
 
    name:

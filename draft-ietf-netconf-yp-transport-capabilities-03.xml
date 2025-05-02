@@ -385,7 +385,7 @@ module ietf-notification-transport-capabilities {
                title="Updates to the YANG Module Names Registry">
         <t>This document registers one YANG module in the
 				"YANG Module Names" registry <xref target="RFC6020"/>. Following
-				the format in <xref target="RFC3688"/>, the following
+				the format in <xref target="RFC6020"/>, the following
 				registration has been made:</t>
 
         <figure>
