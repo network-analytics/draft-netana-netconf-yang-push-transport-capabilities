@@ -699,10 +699,10 @@ Internet-Draft  YANG Notification Transport Capabilities        May 2025
               -subscribed-notifications">sn:encode-xml</encoding-format>
             <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
              -subscribed-notifications">sn:encode-json</encoding-format>
-            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
-             ietf-tls-common">tlscmn:tls12</security-protocol>
-            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
-             ietf-tls-common">tlscmn:tls13</security-protocol>
+            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yan\
+             g:ietf-tls-common">tlscmn:tls12</security-protocol>
+            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yan\
+             g:ietf-tls-common">tlscmn:tls13</security-protocol>
           </transport-capability>
           <transport-capability>
             <transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
