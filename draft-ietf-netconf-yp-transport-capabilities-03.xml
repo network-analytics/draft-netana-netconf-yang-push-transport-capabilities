@@ -564,12 +564,20 @@ module ietf-notification-transport-capabilities {
               -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
             &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
              -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
+            &lt;security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
+             ietf-tls-common"&gt;tlscmn:tls12&lt;/security-protocol&gt; 
+            &lt;security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
+             ietf-tls-common"&gt;tlscmn:tls13&lt;/security-protocol&gt; 
           &lt;/transport-capability&gt;  
           &lt;transport-capability&gt; 
             &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
             ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
+            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt;
             &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
               f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
+            &lt;security-protocol&gt;dtls12&lt;/security-protocol&gt; 
+            &lt;security-protocol&gt;dtls13&lt;/security-protocol&gt; 
           &lt;/transport-capability&gt; 
         &lt;/transport-capabilities&gt; 
       &lt;/subscription-capabilities&gt; 
@@ -628,8 +636,8 @@ module ietf-notification-transport-capabilities {
           &lt;/transport-capability&gt;
           &lt;transport-capability&gt;
             &lt;transport-protocol&gt;unt:udp-notif&lt;/transport-protocol&gt;
-            &lt;encoding-format&gt;unt:encode-cbor&lt;/encoding-format&gt;
             &lt;encoding-format&gt;sn:encode-json&lt;/encoding-format&gt;
+            &lt;encoding-format&gt;unt:encode-cbor&lt;/encoding-format&gt;
             &lt;security-protocol&gt;dtls12&lt;/security-protocol&gt;
             &lt;security-protocol&gt;dtls13&lt;/security-protocol&gt;
           &lt;/transport-capability&gt;

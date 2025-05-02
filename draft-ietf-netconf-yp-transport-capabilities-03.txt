@@ -699,26 +699,26 @@ Internet-Draft  YANG Notification Transport Capabilities        May 2025
               -subscribed-notifications">sn:encode-xml</encoding-format>
             <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
              -subscribed-notifications">sn:encode-json</encoding-format>
+            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
+             ietf-tls-common">tlscmn:tls12</security-protocol>
+            <security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yang:\
+             ietf-tls-common">tlscmn:tls13</security-protocol>
           </transport-capability>
           <transport-capability>
             <transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
             ietf-udp-notif-transport">unt:udp-notif</transport-protocol>
+            <encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
+             -subscribed-notifications">sn:encode-json</encoding-format>
             <encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
               f-udp-notif-transport">unt:encode-cbor</encoding-format>
+            <security-protocol>dtls12</security-protocol>
+            <security-protocol>dtls13</security-protocol>
           </transport-capability>
         </transport-capabilities>
       </subscription-capabilities>
     </system-capabilities>
   </content-data>
 </instance-data-set>
-
-   In addition, the client could also query notification transport
-   capabilities from the server.  For example, the client sends <get>
-   request message to the the server to query from the server.
-
-
-
-
 
 
 
@@ -729,6 +729,10 @@ Wu, et al.               Expires 3 November 2025               [Page 13]
 
 Internet-Draft  YANG Notification Transport Capabilities        May 2025
 
+
+   In addition, the client could also query notification transport
+   capabilities from the server.  For example, the client sends <get>
+   request message to the the server to query from the server.
 
  <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
    <get>
@@ -746,10 +750,6 @@ Internet-Draft  YANG Notification Transport Capabilities        May 2025
 
    The server returns server data export capability using <rpc-reply> as
    follows:
-
-
-
-
 
 
 
@@ -812,8 +812,8 @@ Internet-Draft  YANG Notification Transport Capabilities        May 2025
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
-            <encoding-format>unt:encode-cbor</encoding-format>
             <encoding-format>sn:encode-json</encoding-format>
+            <encoding-format>unt:encode-cbor</encoding-format>
             <security-protocol>dtls12</security-protocol>
             <security-protocol>dtls13</security-protocol>
           </transport-capability>
