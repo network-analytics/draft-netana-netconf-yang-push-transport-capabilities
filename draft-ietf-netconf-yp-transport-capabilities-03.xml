@@ -110,7 +110,7 @@
       </address>
     </author>
 
-    <date day="02" month="May" year="2025"/>
+    <date day="10" month="May" year="2025"/>
 
     <area>OPS Area</area>
 
@@ -476,8 +476,8 @@ module ietf-notification-transport-capabilities {
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Mohamed Boucadair,
-	    Kent Watson, Jan Lindblad, Reshad Rahman, Xiao Min and Rob Wilton
-			for their review and valuable comments.</t>
+	    Kent Watson, Jan Lindblad, Reshad Rahman, Xiao Min, Per Andersson
+			and Rob Wilton for their review and valuable comments.</t>
     </section>
   </middle>
 
