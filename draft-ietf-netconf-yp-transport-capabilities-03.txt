@@ -13,7 +13,7 @@ Expires: 17 November 2025                                  A. Huang Feng
 
 
                 YANG Notification Transport Capabilities
-            draft-ietf-netconf-yp-transport-capabilities-02
+            draft-ietf-netconf-yp-transport-capabilities-03
 
 Abstract
 
