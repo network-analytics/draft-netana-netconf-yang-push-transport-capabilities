@@ -110,7 +110,7 @@
       </address>
     </author>
 
-    <date day="10" month="May" year="2025"/>
+    <date day="16" month="May" year="2025"/>
 
     <area>OPS Area</area>
 
@@ -541,7 +541,12 @@ module ietf-notification-transport-capabilities {
       <figure>
         <artwork>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;instance-data-set xmlns=
-"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"&gt;
+"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
+xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
+xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"&gt;
   &lt;name&gt;acme-router-notification-capabilities&lt;/name&gt;
   &lt;content-schema&gt;
     &lt;module&gt;ietf-system-capabilities@2020-03-23&lt;/module&gt;
@@ -558,24 +563,16 @@ module ietf-notification-transport-capabilities {
         &lt;transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
           -notification-transport-capabilities"&gt;  
           &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:hnt="urn:ietf:params:xml:ns:yang:\
-            ietf-https-notif-transport"&gt;hnt:https&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-              -subscribed-notifications"&gt;sn:encode-xml&lt;/encoding-format&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt; 
-            &lt;security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yan\
-             g:ietf-tls-common"&gt;tlscmn:tls12&lt;/security-protocol&gt; 
-            &lt;security-protocol xmlns:tlscmn="urn:ietf:params:xml:ns:yan\
-             g:ietf-tls-common"&gt;tlscmn:tls13&lt;/security-protocol&gt; 
+            &lt;transport-protocol&gt;hnt:https&lt;/transport-protocol&gt;  
+            &lt;encoding-format&gt;sn:encode-xml&lt;/encoding-format&gt;  
+            &lt;encoding-format&gt;sn:encode-json&lt;/encoding-format&gt; 
+            &lt;security-protocol&gt;tlscmn:tls12&lt;/security-protocol&gt; 
+            &lt;security-protocol&gt;tlscmn:tls13&lt;/security-protocol&gt; 
           &lt;/transport-capability&gt;  
           &lt;transport-capability&gt; 
-            &lt;transport-protocol xmlns:unt="urn:ietf:params:xml:ns:yang:\
-            ietf-udp-notif-transport"&gt;unt:udp-notif&lt;/transport-protocol&gt;  
-            &lt;encoding-format xmlns:sn="urn:ietf:params:xml:ns:yang:ietf\
-             -subscribed-notifications"&gt;sn:encode-json&lt;/encoding-format&gt;
-            &lt;encoding-format xmlns:unt="urn:ietf:params:xml:ns:yang:iet\
-              f-udp-notif-transport"&gt;unt:encode-cbor&lt;/encoding-format&gt; 
+            &lt;transport-protocol&gt;unt:udp-notif&lt;/transport-protocol&gt;  
+            &lt;encoding-format&gt;sn:encode-json&lt;/encoding-format&gt;
+            &lt;encoding-format&gt;unt:encode-cbor&lt;/encoding-format&gt; 
             &lt;security-protocol&gt;dtls12&lt;/security-protocol&gt; 
             &lt;security-protocol&gt;dtls13&lt;/security-protocol&gt; 
           &lt;/transport-capability&gt; 
