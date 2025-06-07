@@ -182,7 +182,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    The following tree diagram [RFC8340] provides an overview of the data
    model.
 
-   module: ietf-notification-transport-capabilities
+   module: ietf-yp-transport-capabilities
 
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro transport-capabilities
@@ -193,15 +193,11 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 3.  YANG Module
 
-   <CODE BEGINS>
-     file "ietf-notification-transport-capabilities@2025-06-07.yang"
-   ========== NOTE: '\' line wrapping per RFC 8792) ===========
-
-   module ietf-notification-transport-capabilities {
+   <CODE BEGINS> file "ietf-yp-transport-capabilities@2025-06-07.yang"
+   module ietf-yp-transport-capabilities {
      yang-version 1.1;
      namespace
-       "urn:ietf:params:xml:ns:yang:ietf-notification-transport-\
-        capabilities";
+       "urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities";
      prefix ntc;
 
      import ietf-subscribed-notifications {
@@ -218,6 +214,10 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
      import ietf-notification-capabilities {
        prefix notc;
        reference
+         "RFC 9196: YANG Modules Describing Capabilities for
+          Systems and Datastore Update Notifications";
+     }
+     import ietf-tls-common {
 
 
 
@@ -226,10 +226,6 @@ Wu, et al.               Expires 9 December 2025                [Page 4]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-         "RFC 9196: YANG Modules Describing Capabilities for
-          Systems and Datastore Update Notifications";
-     }
-     import ietf-tls-common {
        prefix tlscmn;
        reference
          "RFC 9645: YANG Groupings for TLS Clients and TLS Servers";
@@ -274,6 +270,10 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
         for full legal notices.";
 
+     revision 2025-06-07 {
+       description
+         "Initial revision.";
+       reference
 
 
 
@@ -282,10 +282,6 @@ Wu, et al.               Expires 9 December 2025                [Page 5]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-     revision 2025-06-07 {
-       description
-         "Initial revision.";
-       reference
          "RFC XXXX: YANG Notifications Transport Capabilities";
      }
 
@@ -330,6 +326,10 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
                base sn:transport;
              }
              description
+               "Indicates supported transport protocol for YANG-Push.";
+           }
+           leaf-list security-protocol {
+             type union {
 
 
 
@@ -338,10 +338,6 @@ Wu, et al.               Expires 9 December 2025                [Page 6]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-               "Indicates supported transport protocol for YANG-Push.";
-           }
-           leaf-list security-protocol {
-             type union {
                type identityref {
                  base security-protocol;
                }
@@ -373,12 +369,12 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    Following the format in [RFC3688], the following registration has
    been made:
 
-  URI:
-    urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
-  Registrant Contact:
-    The IESG.
-  XML:
-    N/A; the requested URI is an XML namespace.
+      URI:
+         urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+      Registrant Contact:
+         The IESG.
+      XML:
+         N/A; the requested URI is an XML namespace.
 
 4.2.  Updates to the YANG Module Names Registry
 
@@ -389,20 +385,24 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
+
+
+
+
 Wu, et al.               Expires 9 December 2025                [Page 7]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-  name:
-    ietf-notification-transport-capabilities
-  namespace:
-    urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
-  prefix:
-    ntc
-  reference:
-    RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
-    this note.)
+     name:
+        ietf-yp-transport-capabilities
+     namespace:
+        urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+     prefix:
+        ntc
+     reference:
+        RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+        this note.)
 
 5.  Implementation Status
 
@@ -423,12 +423,11 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    This section is modeled after the template described in Section 3.7
    of [I-D.ietf-netmod-rfc8407bis]
 
-   The "ietf-notification-transport-capabilities" YANG module defines a
-   data model that is designed to be accessed via YANG-based management
-   protocols, such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These
-   protocols have to use a secure transport layer (e.g., SSH [RFC4252],
-   TLS [RFC8446], and QUIC [RFC9000]) and have to use mutual
-   authentication.
+   The "ietf-yp-transport-capabilities" YANG module defines a data model
+   that is designed to be accessed via YANG-based management protocols,
+   such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These protocols
+   have to use a secure transport layer (e.g., SSH [RFC4252], TLS
+   [RFC8446], and QUIC [RFC9000]) and have to use mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -440,6 +439,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    inherits all the security considerations of [RFC9196].
 
 7.  Contributors
+
 
 
 
@@ -546,10 +546,10 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
 
-   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
-              "Handling Long Lines in Content of Internet-Drafts and
-              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
-              <https://www.rfc-editor.org/info/rfc8792>.
+   [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
+              Datagram Transport Layer Security (DTLS) Protocol Version
+              1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
+              <https://www.rfc-editor.org/info/rfc9147>.
 
 
 
@@ -561,11 +561,6 @@ Wu, et al.               Expires 9 December 2025               [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
-
-   [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
-              Datagram Transport Layer Security (DTLS) Protocol Version
-              1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
-              <https://www.rfc-editor.org/info/rfc9147>.
 
    [RFC9196]  Lengyel, B., Clemm, A., and B. Claise, "YANG Modules
               Describing Capabilities for Systems and Datastore Update
@@ -611,17 +606,17 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
               January 2006, <https://www.rfc-editor.org/info/rfc4252>.
 
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/info/rfc6020>.
+
 
 
 Wu, et al.               Expires 9 December 2025               [Page 11]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
-
-   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
-              the Network Configuration Protocol (NETCONF)", RFC 6020,
-              DOI 10.17487/RFC6020, October 2010,
-              <https://www.rfc-editor.org/info/rfc6020>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -637,6 +632,11 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
    The following instance-data example describes the notification
    transport capabilities of a hypothetical "acme-router".
+
+
+
+
+
 
 
 
@@ -686,7 +686,7 @@ xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
   <content-schema>
     <module>ietf-system-capabilities@2020-03-23</module>
     <module>ietf-notification-capabilities@2020-03-23</module>
-    <module>ietf-notification-transport-capabilities@2024-10-14</module>
+    <module>ietf-yp-transport-capabilities@2025-06-07</module>
   </content-schema>
   <!-- revision date, contact, etc. -->
   <description>Server Capability Discovery</description>

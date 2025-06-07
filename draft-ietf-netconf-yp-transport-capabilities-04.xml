@@ -213,7 +213,7 @@
 				an overview of the data model.</t>
 
                 <sourcecode type="yangtree"><![CDATA[
-module: ietf-notification-transport-capabilities
+module: ietf-yp-transport-capabilities
 
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro transport-capabilities
@@ -227,15 +227,12 @@ module: ietf-notification-transport-capabilities
 
     <section title="YANG Module">
       <sourcecode type="yang" markers="true"
-			name="ietf-notification-transport-capabilities@2025-06-07.yang">
+			name="ietf-yp-transport-capabilities@2025-06-07.yang">
 <![CDATA[
-========== NOTE: '\' line wrapping per RFC 8792) ===========
-
-module ietf-notification-transport-capabilities {
+module ietf-yp-transport-capabilities {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-notification-transport-\
-     capabilities";
+    "urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities";
   prefix ntc;
 
   import ietf-subscribed-notifications {
@@ -383,12 +380,12 @@ module ietf-notification-transport-capabilities {
 				target="RFC3688"/>, the following registration has been made:</t>
 
         <figure>
-          <artwork>  URI:
-    urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
-  Registrant Contact:
-    The IESG.
-  XML:
-    N/A; the requested URI is an XML namespace.</artwork>
+          <artwork>   URI:
+      urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+   Registrant Contact:
+      The IESG.
+   XML:
+      N/A; the requested URI is an XML namespace.</artwork>
         </figure>
       </section>
 
@@ -400,15 +397,15 @@ module ietf-notification-transport-capabilities {
 				registration has been made:</t>
 
         <figure>
-          <artwork>  name:
-    ietf-notification-transport-capabilities
-  namespace:
-    urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities
-  prefix:
-    ntc
-  reference:
-    RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
-    this note.)</artwork>
+          <artwork>   name:
+      ietf-yp-transport-capabilities
+   namespace:
+      urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+   prefix:
+      ntc
+   reference:
+      RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+      this note.)</artwork>
         </figure>
       </section>
     </section>
@@ -433,7 +430,7 @@ module ietf-notification-transport-capabilities {
       section="3.7" sectionFormat="of"
       target="I-D.ietf-netmod-rfc8407bis"/></t>
 
-      <t>The "ietf-notification-transport-capabilities" YANG module
+      <t>The "ietf-yp-transport-capabilities" YANG module
 			defines a data model that is designed to be accessed via
 			YANG-based management protocols, such as NETCONF <xref
 			target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>. These
@@ -516,8 +513,6 @@ module ietf-notification-transport-capabilities {
 
       <?rfc include="reference.RFC.8641.xml"?>
 
-      <?rfc include="reference.RFC.8792.xml"?>
-
       <?rfc include="reference.RFC.9147.xml"?>
 
       <?rfc include="reference.RFC.9196.xml"?>
@@ -560,7 +555,7 @@ xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"&gt;
   &lt;content-schema&gt;
     &lt;module&gt;ietf-system-capabilities@2020-03-23&lt;/module&gt;
     &lt;module&gt;ietf-notification-capabilities@2020-03-23&lt;/module&gt;
-    &lt;module&gt;ietf-notification-transport-capabilities@2024-10-14&lt;/module&gt;
+    &lt;module&gt;ietf-yp-transport-capabilities@2025-06-07&lt;/module&gt;
   &lt;/content-schema&gt;
   &lt;!-- revision date, contact, etc. --&gt;
   &lt;description&gt;Server Capability Discovery&lt;/description&gt;

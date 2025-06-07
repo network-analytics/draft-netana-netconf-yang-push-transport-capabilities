@@ -1,6 +1,6 @@
-module ietf-notification-transport-capabilities {
+module ietf-yp-transport-capabilities {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-notification-transport-capabilities";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities";
   prefix ntc;
 
   import ietf-subscribed-notifications {
