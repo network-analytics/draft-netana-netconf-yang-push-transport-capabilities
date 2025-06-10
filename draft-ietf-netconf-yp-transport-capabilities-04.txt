@@ -5,7 +5,7 @@
 NETCONF Working Group                                              Q. Wu
 Internet-Draft                                                     Q. Ma
 Intended status: Standards Track                                  Huawei
-Expires: 9 December 2025                                   A. Huang-Feng
+Expires: 9 December 2025                                   A. Huang Feng
                                                                INSA-Lyon
                                                                  T. Graf
                                                                 Swisscom
@@ -369,11 +369,12 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    Following the format in [RFC3688], the following registration has
    been made:
 
-   URI: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
-   Registrant Contact: The IESG.
-   XML: N/A; the requested URI is an XML namespace.
-   Reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
-     and remove this note.)
+      URI:
+         urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+      Registrant Contact:
+         The IESG.
+      XML:
+         N/A; the requested URI is an XML namespace.
 
 4.2.  Updates to the YANG Module Names Registry
 
@@ -381,11 +382,10 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    registry [RFC6020].  Following the format in [RFC6020], the following
    registration has been made:
 
-   name: ietf-yp-transport-capabilities
-   namespace: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
-   prefix: ntc
-   reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
-     and remove this note.)
+
+
+
+
 
 
 
@@ -393,6 +393,16 @@ Wu, et al.               Expires 9 December 2025                [Page 7]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
+
+     name:
+        ietf-yp-transport-capabilities
+     namespace:
+        urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
+     prefix:
+        ntc
+     reference:
+        RFC XXXX (RFC Ed.: replace XXX with actual RFC number and remove
+        this note.)
 
 5.  Implementation Status
 
@@ -429,16 +439,6 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
    inherits all the security considerations of [RFC9196].
 
 7.  Contributors
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -674,52 +674,52 @@ Wu, et al.               Expires 9 December 2025               [Page 12]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
+<?xml version="1.0" encoding="UTF-8"?>
+<instance-data-set xmlns=
+"urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
+xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
+xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
+  <name>acme-router-notification-capabilities</name>
+  <content-schema>
+    <module>ietf-system-capabilities@2020-03-23</module>
+    <module>ietf-notification-capabilities@2020-03-23</module>
+    <module>ietf-yp-transport-capabilities@2025-06-07</module>
+  </content-schema>
+  <!-- revision date, contact, etc. -->
+  <description>Server Capability Discovery</description>
+  <content-data>
+    <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system\
+      -capabilities">
+      <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+        f-notification-capabilities">
+        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+          -notification-transport-capabilities">
+          <transport-capability>
+            <transport-protocol>hnt:https</transport-protocol>
+            <encoding-format>sn:encode-xml</encoding-format>
+            <encoding-format>sn:encode-json</encoding-format>
+            <security-protocol>tlscmn:tls12</security-protocol>
+            <security-protocol>tlscmn:tls13</security-protocol>
+          </transport-capability>
+          <transport-capability>
+            <transport-protocol>unt:udp-notif</transport-protocol>
+            <encoding-format>sn:encode-json</encoding-format>
+            <encoding-format>unt:encode-cbor</encoding-format>
+            <security-protocol>dtls12</security-protocol>
+            <security-protocol>dtls13</security-protocol>
+          </transport-capability>
+        </transport-capabilities>
+      </subscription-capabilities>
+    </system-capabilities>
+  </content-data>
+</instance-data-set>
 
-   <?xml version="1.0" encoding="UTF-8"?>
-   <instance-data-set
-     xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
-     xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
-     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notification\
-   s"
-     xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
-     xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
-     xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
-     <name>acme-router-notification-capabilities</name>
-     <content-schema>
-       <module>ietf-system-capabilities@2020-03-23</module>
-       <module>ietf-notification-capabilities@2020-03-23</module>
-       <module>ietf-yp-transport-capabilities@2025-06-07</module>
-     </content-schema>
-     <!-- revision date, contact, etc. -->
-     <description>Server Capability Discovery</description>
-     <content-data>
-       <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-sys\
-   tem-capabilities">
-         <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:\
-   ietf-notification-capabilities">
-           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:i\
-   etf-yp-transport-capabilities">
-             <transport-capability>
-               <transport-protocol>hnt:https</transport-protocol>
-               <encoding-format>sn:encode-xml</encoding-format>
-               <encoding-format>sn:encode-json</encoding-format>
-               <security-protocol>tlscmn:tls12</security-protocol>
-               <security-protocol>tlscmn:tls13</security-protocol>
-             </transport-capability>
-             <transport-capability>
-               <transport-protocol>unt:udp-notif</transport-protocol>
-               <encoding-format>sn:encode-json</encoding-format>
-               <encoding-format>unt:encode-cbor</encoding-format>
-               <security-protocol>dtls12</security-protocol>
-               <security-protocol>dtls13</security-protocol>
-             </transport-capability>
-           </transport-capabilities>
-         </subscription-capabilities>
-       </system-capabilities>
-     </content-data>
-   </instance-data-set>
-
+   In addition, the client could also query notification transport
+   capabilities from the server.  For example, the client sends <get>
+   request message to the the server to query from the server.
 
 
 
@@ -730,30 +730,30 @@ Wu, et al.               Expires 9 December 2025               [Page 13]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-   In addition, the client could also query notification transport
-   capabilities from the server.  For example, the client sends <get>
-   request message to the the server to query from the server.
-
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
-   <rpc message-id="101"
-     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-     <get>
-       <filter type="subtree">
-         <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-s\
-   ystem-capabilities">
-           <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yan\
-   g:ietf-notification-capabilities">
-             <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang\
-   :ietf-yp-transport-capabilities"/>
-           </subscription-capabilities>
-         </system-capabilities>
-       </filter>
-     </get>
-   </rpc>
+ <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+   <get>
+     <filter type="subtree">
+     <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-syste\
+       m-capabilities">
+       <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ie\
+         tf-notification-capabilities">
+       <transport-capabilities/>
+       </subscription-capabilities>
+     </system-capabilities>
+    </filter>
+   </get>
+ </rpc>
 
    The server returns server data export capability using <rpc-reply> as
    follows:
+
+
+
+
+
+
+
+
 
 
 
@@ -786,44 +786,42 @@ Wu, et al.               Expires 9 December 2025               [Page 14]
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
-   <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
-     xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-     xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabiliti\
-   es"
-     xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabiliti\
-   es"
-     xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
-     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notification\
-   s"
-     xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
-     xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common" message\
-   -id="101">
-     <data>
-       <sc:system-capabilities>
-         <nc:subscription-capabilities>
-           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:i\
-   etf-yp-transport-capabilities">
-             <transport-capability>
-               <transport-protocol>hnt:https</transport-protocol>
-               <encoding-format>sn:encode-xml</encoding-format>
-               <encoding-format>sn:encode-json</encoding-format>
-               <security-protocol>tlscmn:tls12</security-protocol>
-               <security-protocol>tlscmn:tls13</security-protocol>
-             </transport-capability>
-             <transport-capability>
-               <transport-protocol>unt:udp-notif</transport-protocol>
-               <encoding-format>sn:encode-json</encoding-format>
-               <encoding-format>unt:encode-cbor</encoding-format>
-               <security-protocol>dtls12</security-protocol>
-               <security-protocol>dtls13</security-protocol>
-             </transport-capability>
-           </transport-capabilities>
-         </nc:subscription-capabilities>
-       </sc:system-capabilities>
-     </data>
-   </rpc-reply>
+<rpc-reply
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+  xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+  xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+  xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-notification-transport-cap\
+  abilities"
+  xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+  xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
+  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+  message-id="101">
+  <data>
+    <sc:system-capabilities>
+      <nc:subscription-capabilities>
+        <transport-capabilities
+         xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-transport\
+         -capabilities">
+          <transport-capability>
+            <transport-protocol>hnt:https</transport-protocol>
+            <encoding-format>sn:encode-xml</encoding-format>
+            <encoding-format>sn:encode-json</encoding-format>
+            <security-protocol>tlscmn:tls12</security-protocol>
+            <security-protocol>tlscmn:tls13</security-protocol>
+          </transport-capability>
+          <transport-capability>
+            <transport-protocol>unt:udp-notif</transport-protocol>
+            <encoding-format>sn:encode-json</encoding-format>
+            <encoding-format>unt:encode-cbor</encoding-format>
+            <security-protocol>dtls12</security-protocol>
+            <security-protocol>dtls13</security-protocol>
+          </transport-capability>
+        </transport-capabilities>
+      </nc:subscription-capabilities>
+    </sc:system-capabilities>
+  </data>
+</rpc-reply>
 
 Authors' Addresses
 
@@ -834,6 +832,8 @@ Authors' Addresses
    Jiangsu, 210012
    China
    Email: bill.wu@huawei.com
+
+
 
 
 

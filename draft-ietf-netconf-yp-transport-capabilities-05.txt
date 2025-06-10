@@ -5,11 +5,11 @@
 NETCONF Working Group                                              Q. Wu
 Internet-Draft                                                     Q. Ma
 Intended status: Standards Track                                  Huawei
-Expires: 9 December 2025                                   A. Huang-Feng
+Expires: 12 December 2025                                  A. Huang-Feng
                                                                INSA-Lyon
                                                                  T. Graf
                                                                 Swisscom
-                                                             7 June 2025
+                                                            10 June 2025
 
 
                 YANG Notification Transport Capabilities
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 December 2025.
+   This Internet-Draft will expire on 12 December 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 1]
+Wu, et al.              Expires 12 December 2025                [Page 1]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 2]
+Wu, et al.              Expires 12 December 2025                [Page 2]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -165,7 +165,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 3]
+Wu, et al.              Expires 12 December 2025                [Page 3]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -221,7 +221,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 4]
+Wu, et al.              Expires 12 December 2025                [Page 4]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -277,7 +277,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 5]
+Wu, et al.              Expires 12 December 2025                [Page 5]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -333,7 +333,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 6]
+Wu, et al.              Expires 12 December 2025                [Page 6]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -389,7 +389,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 7]
+Wu, et al.              Expires 12 December 2025                [Page 7]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -445,7 +445,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 8]
+Wu, et al.              Expires 12 December 2025                [Page 8]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -501,7 +501,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025                [Page 9]
+Wu, et al.              Expires 12 December 2025                [Page 9]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -557,7 +557,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 10]
+Wu, et al.              Expires 12 December 2025               [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -613,7 +613,7 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 11]
+Wu, et al.              Expires 12 December 2025               [Page 11]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -669,19 +669,18 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 12]
+Wu, et al.              Expires 12 December 2025               [Page 12]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
+   ================= NOTE: '\' line wrapping per RFC 8792 ==================
 
    <?xml version="1.0" encoding="UTF-8"?>
    <instance-data-set
      xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
      xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
-     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notification\
-   s"
+     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
      xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
      xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
      xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
@@ -694,12 +693,12 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
      <!-- revision date, contact, etc. -->
      <description>Server Capability Discovery</description>
      <content-data>
-       <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-sys\
-   tem-capabilities">
-         <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:\
-   ietf-notification-capabilities">
-           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:i\
-   etf-yp-transport-capabilities">
+       <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system-\
+         capabilities">
+         <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf\
+           -notification-capabilities">
+           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+             yp-transport-capabilities">
              <transport-capability>
                <transport-protocol>hnt:https</transport-protocol>
                <encoding-format>sn:encode-xml</encoding-format>
@@ -720,32 +719,29 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
      </content-data>
    </instance-data-set>
 
-
-
-
-
-
-Wu, et al.               Expires 9 December 2025               [Page 13]
-
-Internet-Draft  YANG Notification Transport Capabilities       June 2025
-
-
    In addition, the client could also query notification transport
    capabilities from the server.  For example, the client sends <get>
    request message to the the server to query from the server.
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+
+Wu, et al.              Expires 12 December 2025               [Page 13]
+
+Internet-Draft  YANG Notification Transport Capabilities       June 2025
+
+
+   ================= NOTE: '\' line wrapping per RFC 8792 ==================
 
    <rpc message-id="101"
      xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
      <get>
        <filter type="subtree">
-         <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-s\
-   ystem-capabilities">
-           <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yan\
-   g:ietf-notification-capabilities">
-             <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang\
-   :ietf-yp-transport-capabilities"/>
+         <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-syste\
+           m-capabilities">
+           <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ie\
+             tf-notification-capabilities">
+             <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:iet\
+               f-yp-transport-capabilities"/>
            </subscription-capabilities>
          </system-capabilities>
        </filter>
@@ -781,30 +777,31 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 14]
+
+
+
+
+Wu, et al.              Expires 12 December 2025               [Page 14]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
+   ================= NOTE: '\' line wrapping per RFC 8792 ==================
 
    <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
      xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-     xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabiliti\
-   es"
-     xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabiliti\
-   es"
+     xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+     xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities"
      xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
-     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notification\
-   s"
+     xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
      xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
-     xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common" message\
-   -id="101">
+     xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common" message-id=\
+     "101">
      <data>
        <sc:system-capabilities>
          <nc:subscription-capabilities>
-           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:i\
-   etf-yp-transport-capabilities">
+           <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+             yp-transport-capabilities">
              <transport-capability>
                <transport-protocol>hnt:https</transport-protocol>
                <encoding-format>sn:encode-xml</encoding-format>
@@ -837,7 +834,10 @@ Authors' Addresses
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 15]
+
+
+
+Wu, et al.              Expires 12 December 2025               [Page 15]
 
 Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
@@ -893,4 +893,4 @@ Internet-Draft  YANG Notification Transport Capabilities       June 2025
 
 
 
-Wu, et al.               Expires 9 December 2025               [Page 16]
+Wu, et al.              Expires 12 December 2025               [Page 16]
