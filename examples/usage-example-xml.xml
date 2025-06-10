@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instance-data-set 
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
+  xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+  xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
+  <name>acme-router-notification-capabilities</name>
+  <content-schema>
+    <module>ietf-system-capabilities@2020-03-23</module>
+    <module>ietf-notification-capabilities@2020-03-23</module>
+    <module>ietf-yp-transport-capabilities@2025-06-07</module>
+  </content-schema>
+  <!-- revision date, contact, etc. -->
+  <description>Server Capability Discovery</description>
+  <content-data>
+    <system-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-system-capabilities">
+      <subscription-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities">
+        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
+          <transport-capability>
+            <transport-protocol>hnt:https</transport-protocol>
+            <encoding-format>sn:encode-xml</encoding-format>
+            <encoding-format>sn:encode-json</encoding-format>
+            <security-protocol>tlscmn:tls12</security-protocol>
+            <security-protocol>tlscmn:tls13</security-protocol>
+          </transport-capability>
+          <transport-capability>
+            <transport-protocol>unt:udp-notif</transport-protocol>
+            <encoding-format>sn:encode-json</encoding-format>
+            <encoding-format>unt:encode-cbor</encoding-format>
+            <security-protocol>dtls12</security-protocol>
+            <security-protocol>dtls13</security-protocol>
+          </transport-capability>
+        </transport-capabilities>
+      </subscription-capabilities>
+    </system-capabilities>
+  </content-data>
+</instance-data-set>

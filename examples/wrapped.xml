@@ -1,0 +1,38 @@
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+  xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+  xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabiliti\
+es"
+  xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabiliti\
+es"
+  xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
+  xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notification\
+s"
+  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common" message\
+-id="101">
+  <data>
+    <sc:system-capabilities>
+      <nc:subscription-capabilities>
+        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:i\
+etf-yp-transport-capabilities">
+          <transport-capability>
+            <transport-protocol>hnt:https</transport-protocol>
+            <encoding-format>sn:encode-xml</encoding-format>
+            <encoding-format>sn:encode-json</encoding-format>
+            <security-protocol>tlscmn:tls12</security-protocol>
+            <security-protocol>tlscmn:tls13</security-protocol>
+          </transport-capability>
+          <transport-capability>
+            <transport-protocol>unt:udp-notif</transport-protocol>
+            <encoding-format>sn:encode-json</encoding-format>
+            <encoding-format>unt:encode-cbor</encoding-format>
+            <security-protocol>dtls12</security-protocol>
+            <security-protocol>dtls13</security-protocol>
+          </transport-capability>
+        </transport-capabilities>
+      </nc:subscription-capabilities>
+    </sc:system-capabilities>
+  </data>
+</rpc-reply>
