@@ -12,7 +12,7 @@
 <?rfc strict="yes" ?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-netconf-yp-transport-capabilities-05"
+<rfc category="std" docName="draft-ietf-netconf-yp-transport-capabilities-06"
      ipr="trust200902" consensus="true" submissionType="IETF">
   <front>
     <title abbrev="YANG Notification Transport Capabilities">YANG
@@ -102,7 +102,7 @@
       </address>
     </author>
 
-    <date day="16" month="June" year="2025"/>
+    <date day="21" month="November" year="2025"/>
 
     <area>OPS Area</area>
 
@@ -111,12 +111,12 @@
     <abstract>
       <t>This document specifies a YANG module for YANG notifications
       transport capabilities which augments the notification
-      capabilities model. The module provides transport protocol,
-      transport encoding, and transport encryption system capabilities
-      for transport-specific notification. This YANG module can be used
-      by the client to learn capability information from the server at
-      runtime or at implementation time, by making use of the YANG
-      instance data file format.</t>
+      capabilities model. The module provides YANG notifications 
+			transport protocol, transport encoding, and transport encryption
+			system capabilities for transport-specific notification. This YANG
+			module can be used by the client to learn capability information
+			from the server at runtime or at implementation time, by making
+			use of the YANG instance data file format.</t>
     </abstract>
   </front>
 
@@ -131,11 +131,11 @@
       exposed by the server.</t>
 
       <t>However, clients and  servers may still support various
-      different transport specific parameters (e.g., transport protocol,
-      encoding format or encryption). As described in <xref
-      section="3.2" sectionFormat="of" target="RFC8641"/>. A simple
-      negotiation (e.g., inserting hints into error responses to a
-      failed RPC request) between subscribers and publishers for
+      different YANG notifications transport specific parameters (e.g.,
+			transport protocol, encoding format or encryption). As described
+			in <xref section="3.2" sectionFormat="of" target="RFC8641"/>. A
+			simple negotiation (e.g., inserting hints into error responses to
+			a failed RPC request) between subscribers and publishers for
       subscription parameters increases the likelihood of success for
       subsequent RPC requests, but not guaranteed and widely supported,
       which may cause unexpected failure or additional message exchange
@@ -179,22 +179,22 @@
       <t>This document provides
       additional transport related attributes associated with system
       capabilities:<list style="symbols">
-          <t>Specification of transport protocols that a client can
-          request to establish an HTTPS-based <xref
+          <t>Specification of YANG notifications transport protocols
+					that a client can request to establish an HTTPS-based <xref
           target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
           target="I-D.ietf-netconf-udp-notif"/> configured transport
           connection.</t>
 
-          <t>Specification of transport encoding, including JSON or XML
-          as defined in <xref target="RFC8040"/> or CBOR as defined in
-          <xref target="RFC9254"/> the client can request to encode YANG
-          notifications;</t>
+          <t>Specification of YANG notifications transport encoding,
+					including JSON or XML as defined in <xref target="RFC8040"/>
+					or CBOR as defined in <xref target="RFC9254"/> the client can
+					request;</t>
 
-          <t>Specification of secure transport mechanisms that are
-          needed by a client to communicate with a server including
-          DTLS 1.2 <xref target="RFC6347"/>, DTLS 1.3 <xref
-          target="RFC9147"/>, TLS 1.2 <xref target="RFC5246"/>, TLS 1.3
-          <xref target="RFC8446"/>.</t>
+          <t>Specification of secure YANG notifications transport
+					mechanisms that are needed by a client to communicate with a
+					server including DTLS 1.2 <xref target="RFC6347"/>, DTLS 1.3
+					<xref target="RFC9147"/>, TLS 1.2 <xref target="RFC5246"/>,
+					TLS 1.3 <xref target="RFC8446"/>.</t>
       
       <t>To that end, the model defined in this document augments the
       System Capabilities model<xref target="RFC9196"/>.</t>
@@ -297,7 +297,7 @@ module ietf-yp-transport-capabilities {
 
   identity security-protocol {
     description
-      "Identity for security protocols.";
+      "Identity for YANG notifications security protocols.";
   }
 
   identity dtls12 {
@@ -330,13 +330,14 @@ module ietf-yp-transport-capabilities {
         key "transport-protocol";
         description
           "Indicates a list of capabilities related to notification
-                  transport.";
+           transport.";
         leaf transport-protocol {
           type identityref {
             base sn:transport;
           }
           description
-            "Indicates supported transport protocol for YANG-Push.";
+            "Indicates supported YANG notifications transport protocol
+						 for YANG-Push.";
         }
         leaf-list security-protocol {
           type union {
@@ -348,7 +349,7 @@ module ietf-yp-transport-capabilities {
             }
           }
           description
-            "Indicates transport security protocol.";
+            "Indicates YANG notifications transport security protocol.";
         }
         leaf-list encoding-format {
           type identityref {
