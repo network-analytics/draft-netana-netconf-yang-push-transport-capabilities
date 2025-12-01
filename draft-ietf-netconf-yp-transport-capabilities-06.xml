@@ -330,7 +330,7 @@ module ietf-yp-transport-capabilities {
       list transport-capability {
         key "transport-protocol";
         description
-          "Indicates supported YANG notifications transport protocol	
+          "Indicates supported YANG notifications transport protocol
           for Subscribed Notifications [RFC8639] and YANG-Push
           [RFC8641]. Defines the supported transports, security
           protocols and supported notification encodings.";
@@ -339,9 +339,9 @@ module ietf-yp-transport-capabilities {
             base sn:transport;
           }
           description
-            "Indicates the supported YANG notifications transport protocol
-             for Subscribed Notifications [RFC8639] and YANG-Push
-             [RFC8641].";
+            "Indicates the supported YANG notifications transport
+            protocol for Subscribed Notifications [RFC8639] and
+            YANG-Push [RFC8641].";
         }
         leaf-list security-protocol {
           type union {
@@ -353,7 +353,8 @@ module ietf-yp-transport-capabilities {
             }
           }
           description
-            "Indicates the supported YANG notifications transport encryption protocols.";
+            "Indicates the supported YANG notifications transport
+            encryption protocols.";
         }
         leaf-list encoding-format {
           type identityref {

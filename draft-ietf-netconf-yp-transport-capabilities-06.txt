@@ -329,7 +329,7 @@ Internet-Draft  YANG Notification Transport Capabilities   December 2025
                base sn:transport;
              }
              description
-               "Indicates the supported YANG notifications transport protocol
+               "Indicates the supported YANG notifications transport
 
 
 
@@ -338,8 +338,8 @@ Wu, et al.                 Expires 4 June 2026                  [Page 6]
 Internet-Draft  YANG Notification Transport Capabilities   December 2025
 
 
-                for Subscribed Notifications [RFC8639] and YANG-Push
-                [RFC8641].";
+               protocol for Subscribed Notifications [RFC8639] and
+               YANG-Push [RFC8641].";
            }
            leaf-list security-protocol {
              type union {
@@ -351,7 +351,8 @@ Internet-Draft  YANG Notification Transport Capabilities   December 2025
                }
              }
              description
-               "Indicates the supported YANG notifications transport encryption protocols.";
+               "Indicates the supported YANG notifications transport
+               encryption protocols.";
            }
            leaf-list encoding-format {
              type identityref {
@@ -385,7 +386,6 @@ Internet-Draft  YANG Notification Transport Capabilities   December 2025
    This document registers one YANG module in the "YANG Module Names"
    registry [RFC6020].  Following the format in [RFC6020], the following
    registration has been made:
-
 
 
 
