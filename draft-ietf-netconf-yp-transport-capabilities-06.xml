@@ -13,7 +13,8 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std" docName="draft-ietf-netconf-yp-transport-capabilities-06"
-     ipr="trust200902" consensus="true" submissionType="IETF">
+     ipr="trust200902" consensus="true" submissionType="IETF"
+     xmlns:xi="http://www.w3.org/2001/XInclude">
   <front>
     <title abbrev="YANG Notification Transport Capabilities">YANG
     Notification Transport Capabilities</title>
@@ -102,7 +103,7 @@
       </address>
     </author>
 
-    <date day="21" month="November" year="2025"/>
+    <date day="01" month="December" year="2025"/>
 
     <area>OPS Area</area>
 
@@ -130,15 +131,16 @@
       client to adjust its behavior to take advantage of the features
       exposed by the server.</t>
 
-      <t>However, clients and  servers may still support various
+      <t>However, clients and servers may support various
       different YANG notifications transport specific parameters (e.g.,
 			transport protocol, encoding format or encryption). As described
-			in <xref section="3.2" sectionFormat="of" target="RFC8641"/>. A
+			in <xref section="3.2" sectionFormat="of" target="RFC8641"/>, a
 			simple negotiation (e.g., inserting hints into error responses to
 			a failed RPC request) between subscribers and publishers for
       subscription parameters increases the likelihood of success for
-      subsequent RPC requests, but not guaranteed and widely supported,
-      which may cause unexpected failure or additional message exchange
+      subsequent RPC requests. While these error responses help
+      in establishing the subcription, they are not widely supported,
+      which may cause unexpected failures or additional message exchange
       between client and server.</t>
 
       <t>This document defines a more deterministic solution that relies
@@ -178,22 +180,21 @@
 
       <t>This document provides
       additional transport related attributes associated with system
-      capabilities:<list style="symbols">
-          <t>Specification of YANG notifications transport protocols
-					that a client can request to establish an HTTPS-based <xref
+      capabilities:
+      <list style="symbols">
+          <t>Specification of transport protocols for YANG notifications
+					that a client can request to establish, including HTTPS-based <xref
           target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
           target="I-D.ietf-netconf-udp-notif"/> configured transport
           connection.</t>
 
-          <t>Specification of YANG notifications transport encoding,
-					including JSON or XML as defined in <xref target="RFC8040"/>
-					or CBOR as defined in <xref target="RFC9254"/> the client can
-					request;</t>
+          <t>Specification of YANG notifications transport encodings,
+					including XML <xref target="RFC7950"/>, JSON <xref target="RFC7951"/>
+					or CBOR <xref target="RFC9254"/> supported by the server;</t>
 
-          <t>Specification of secure YANG notifications transport
-					mechanisms that are needed by a client to communicate with a
-					server including DTLS 1.2 <xref target="RFC6347"/>, DTLS 1.3
-					<xref target="RFC9147"/>, TLS 1.2 <xref target="RFC5246"/>,
+          <t>Specification of secure YANG notifications transport encryption
+					mechanisms that are supported by the server, including DTLS 1.2 <xref target="RFC6347"/>, DTLS 1.3
+					<xref target="RFC9147"/>, TLS 1.2 <xref target="RFC5246"/>, and
 					TLS 1.3 <xref target="RFC8446"/>.</t>
       
       <t>To that end, the model defined in this document augments the
@@ -219,7 +220,7 @@ module: ietf-yp-transport-capabilities
 
     <section title="YANG Module">
       <sourcecode type="yang" markers="true"
-      name="ietf-yp-transport-capabilities@2025-06-07.yang"><![CDATA[
+      name="ietf-yp-transport-capabilities@2025-12-01.yang"><![CDATA[
 module ietf-yp-transport-capabilities {
   yang-version 1.1;
   namespace
@@ -288,7 +289,7 @@ module ietf-yp-transport-capabilities {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-06-07 {
+  revision 2025-12-01 {
     description
       "Initial revision.";
     reference
@@ -307,7 +308,7 @@ module ietf-yp-transport-capabilities {
        and thus it is NOT RECOMMENDED to enable this feature.";
     reference
       "RFC 6347: The Datagram Transport Layer Security (DTLS)
-                 Protocol Version 1.2";
+      Protocol Version 1.2.";
   }
 
   identity dtls13 {
@@ -316,28 +317,31 @@ module ietf-yp-transport-capabilities {
       "Indicates DTLS Protocol Version 1.3.";
     reference
       "RFC 9147: The Datagram Transport Layer Security (DTLS)
-                 Protocol Version 1.3";
+      Protocol Version 1.3.";
   }
 
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities" {
     description
-      "Adds system level capabilities.";
+      "Adds subscription-related system level capabilities.";
     container transport-capabilities {
       description
         "Specifies capabilities related to YANG-Push transports.";
       list transport-capability {
         key "transport-protocol";
         description
-          "Indicates a list of capabilities related to notification
-           transport.";
+          "Indicates supported YANG notifications transport protocol	
+          for Subscribed Notifications [RFC8639] and YANG-Push
+          [RFC8641]. Defines the supported transports, security
+          protocols and supported notification encodings.";
         leaf transport-protocol {
           type identityref {
             base sn:transport;
           }
           description
-            "Indicates supported YANG notifications transport protocol
-						 for YANG-Push.";
+            "Indicates the supported YANG notifications transport protocol
+             for Subscribed Notifications [RFC8639] and YANG-Push
+             [RFC8641].";
         }
         leaf-list security-protocol {
           type union {
@@ -349,14 +353,14 @@ module ietf-yp-transport-capabilities {
             }
           }
           description
-            "Indicates YANG notifications transport security protocol.";
+            "Indicates the supported YANG notifications transport encryption protocols.";
         }
         leaf-list encoding-format {
           type identityref {
             base sn:encoding;
           }
           description
-            "Indicates supported encoding formats.";
+            "Indicates supported encoding formats for YANG notifications.";
         }
       }
     }
@@ -477,51 +481,33 @@ reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
 
   <back>
     <references title="Normative References">
-      <?rfc include="reference.RFC.2119.xml"?>
-
-      <?rfc include="reference.RFC.8174.xml"?>
-
-      <?rfc include="reference.RFC.5246.xml"?>
-
-      <?rfc include="reference.RFC.6241.xml"?>
-
-      <?rfc include="reference.RFC.6347.xml"?>
-
-      <?rfc include="reference.RFC.8040.xml"?>
-
-      <?rfc include="reference.RFC.8341.xml"?>
-
-      <?rfc include="reference.RFC.8342.xml"?>
-
-      <?rfc include="reference.RFC.8446.xml"?>
-
-      <?rfc include="reference.RFC.8639.xml"?>
-
-      <?rfc include="reference.RFC.8641.xml"?>
-
-      <?rfc include="reference.RFC.9147.xml"?>
-
-      <?rfc include="reference.RFC.9196.xml"?>
-
-      <?rfc include="reference.RFC.9254.xml"?>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.6347.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7951.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9147.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9196.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9254.xml"/>
     </references>
 
     <references title="Informative References">
-      <?rfc include="reference.RFC.3688.xml"?>
-
-      <?rfc include="reference.RFC.4252.xml"?>
-
-      <?rfc include="reference.RFC.6020.xml"?>
-
-      <?rfc include="reference.RFC.8340.xml"?>
-
-      <?rfc include="reference.RFC.9000.xml"?>
-
-      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-udp-notif.xml"?>
-
-      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-https-notif.xml"?>
-
-      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"?>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"/>
+      <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-udp-notif.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netconf-https-notif.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"/>
     </references>
 
     <section title="Usage Example of interaction with UDP-Notif and HTTPS-Notif for Configured Subscription">
