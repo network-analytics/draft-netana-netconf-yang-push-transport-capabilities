@@ -103,7 +103,7 @@
       </address>
     </author>
 
-    <date day="01" month="December" year="2025"/>
+    <date day="15" month="May" year="2026"/>
 
     <area>OPS Area</area>
 
@@ -220,7 +220,7 @@ module: ietf-yp-transport-capabilities
 
     <section title="YANG Module">
       <sourcecode type="yang" markers="true"
-      name="ietf-yp-transport-capabilities@2025-12-01.yang"><![CDATA[
+      name="ietf-yp-transport-capabilities@2026-05-15.yang"><![CDATA[
 module ietf-yp-transport-capabilities {
   yang-version 1.1;
   namespace
@@ -275,7 +275,7 @@ module ietf-yp-transport-capabilities {
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.
 
-     Copyright (c) 2025 IETF Trust and the persons identified as
+     Copyright (c) 2026 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -289,7 +289,7 @@ module ietf-yp-transport-capabilities {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-12-01 {
+  revision 2026-05-15 {
     description
       "Initial revision.";
     reference
