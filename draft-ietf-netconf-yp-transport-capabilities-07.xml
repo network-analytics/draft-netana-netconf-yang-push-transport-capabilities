@@ -110,46 +110,62 @@
     <workgroup>NETCONF Working Group</workgroup>
 
     <abstract>
-      <t>This document specifies a YANG module for YANG notifications
-      transport capabilities which augments the notification
-      capabilities model. The module provides YANG notifications 
-      transport protocol, transport encoding, and transport encryption
-      system capabilities for transport-specific notification. This YANG
-      module can be used by the client to learn capability information
-      from the server at runtime or at implementation time, by making
-      use of the YANG instance data file format.</t>
+      <t>This document specifies a YANG module for discovering
+        transport capabilities for YANG notifications. The module
+        augments the YANG notifications capabilities model with
+        capabilities for the notification transport protocol,
+        transport encoding, and transport encryption. The
+        capabilities enable a client to determine the notification
+        transport options supported by a NETCONF or RESTCONF server
+        at runtime or at implementation time using the YANG
+        instance data file format.</t>
     </abstract>
   </front>
 
   <middle>
     <section anchor="intro" title="Introduction">
       <t>The "ietf-system-capabilities" YANG module defined in <xref
-      target="RFC9196"/> allows a client to discover a set of
-      capabilities supported by a server (including, basic system
-      capabilities and YANG-Push related capabilities) both at
-      implementation time and at runtime. These capabilities allow a
-      client to adjust its behavior to take advantage of the features
-      exposed by the server.</t>
+      target="RFC9196"/> allows a NETCONF or RESTCONF client to discover
+      capabilities supported by a NETCONF or RESTCONF server, including
+      basic system capabilities and YANG-Push related capabilities.
+      These capabilities can be provided at implementation time or
+      reported at runtime, allowing a client to determine which YANG
+      management features are supported by the server.</t>
 
-      <t>However, clients and servers may support various
-      different YANG notifications transport specific parameters (e.g.,
-      transport protocol, encoding format or encryption). As described
-      in <xref section="3.2" sectionFormat="of" target="RFC8641"/>, a
-      simple negotiation (e.g., inserting hints into error responses to
-      a failed RPC request) between subscribers and publishers for
-      subscription parameters increases the likelihood of success for
-      subsequent RPC requests. While these error responses help
-      in establishing the subcription, they are not widely supported,
-      which may cause unexpected failures or additional message exchange
-      between client and server.</t>
+      <t>YANG Notifications, as defined in <xref target="RFC8639"/> and
+        <xref target="RFC8641"/>, allow clients to establish subscriptions
+        for receiving YANG notifications from a NETCONF or RESTCONF server.
+        A server may support multiple notification delivery protocols,
+        encoding formats, and security protocols. Knowledge of these
+        capabilities can allow a client to select an appropriate notification
+        delivery protocol and associated parameters when establishing a
+        subscription.</t>
 
-      <t>This document defines a more deterministic solution that relies
-      upon a YANG module for YANG notifications transport capabilities
-      that is built on top of <xref target="RFC9196"/>. The module can
-      be used by a client to discover capability information from a
-      server at runtime or at implementation time, by making use of the
-      YANG instance data file format.</t>
+      <t>Currently, a client may determine whether a particular notification
+        delivery protocol and its associated parameters are supported only
+        by attempting to use them through configuration. For example, a
+        NETCONF or RESTCONF server may reject a subscription request when
+        the requested notification delivery parameters, such as the
+        delivery protocol, encoding format, or security protocol, are not
+        supported. As described in <xref section="3.2" sectionFormat="of"
+        target="RFC8641"/>, a simple negotiation mechanism, such as inserting
+        hints into an error response to a failed RPC request, can increase
+        the likelihood of success for subsequent RPC requests involving
+        subscription parameters. While such error responses can help
+        establish a subscription, they are not widely supported and may
+        result in unexpected failures or additional message exchanges
+        between the client and server.</t>
 
+      <t>This document defines a YANG module that extends the system
+        capabilities model defined in <xref target="RFC9196"/> with
+        capabilities specific to the delivery of YANG notifications.
+        The module allows a NETCONF or RESTCONF client to discover, from
+        a NETCONF or RESTCONF server, the notification delivery protocols,
+        encoding formats, and security protocols supported for YANG notifications.
+        The capabilities can be provided at implementation time using
+        the YANG instance data file format or discovered at runtime
+        through a YANG management protocol.</t>
+      
       <section title="Terminology">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
         "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",
@@ -157,11 +173,16 @@
         be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when,
         and only when, they appear in all capitals, as shown here.</t>
     
-    <t>The terms "subscriber", "publisher", and "receiver" are used as
-    defined in <xref target="RFC8639"/>.</t>
-    
-    <t>The terms "client", and "server" are used as defined in <xref
-    target="RFC8342"/>.</t>		
+        <t>The terms "subscriber", "publisher", and "receiver" are used as
+        defined in <xref target="RFC8639"/>.</t>
+        
+        <t>The terms "client", and "server" are used as defined in <xref
+        target="RFC8342"/>.</t>		
+
+        <t>The term "transport protocol" is used as defined by the
+        "transport" identity in <xref target="RFC8639"/> and refers to the
+        protocol used to transport YANG notifications between a publisher and
+        a receiver.</t>
       </section>
     </section>
 
