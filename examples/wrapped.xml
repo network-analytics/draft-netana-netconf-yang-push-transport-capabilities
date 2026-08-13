@@ -1,19 +1,16 @@
-================= NOTE: '\' line wrapping per RFC 8792 ==================
-
 <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
-  xmlns:sc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-  xmlns:nc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
-  xmlns:tc="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities"
+  xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
+  xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
   xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
   xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
   xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
-  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common" message-id=\
-"101">
+  xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
+  message-id="101">
   <data>
-    <sc:system-capabilities>
-      <nc:subscription-capabilities>
-        <transport-capabilities xmlns="urn:ietf:params:xml:ns:yang:ietf-\
-yp-transport-capabilities">
+    <sysc:system-capabilities>
+      <notc:subscription-capabilities>
+        <transport-capabilities 
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
             <encoding-format>sn:encode-xml</encoding-format>
@@ -29,7 +26,7 @@ yp-transport-capabilities">
             <security-protocol>dtls13</security-protocol>
           </transport-capability>
         </transport-capabilities>
-      </nc:subscription-capabilities>
-    </sc:system-capabilities>
+      </notc:subscription-capabilities>
+    </sysc:system-capabilities>
   </data>
 </rpc-reply>
