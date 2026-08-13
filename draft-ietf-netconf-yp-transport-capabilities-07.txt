@@ -153,15 +153,15 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   The terms "subscriber", "publisher", and "receiver" are used as
+   The terms "subscription", "publisher", and "receiver" are used as
    defined in [RFC8639].
 
    The terms "client", and "server" are used as defined in [RFC8342].
 
    The term "transport protocol" is used as defined by the "transport"
-   identity in [RFC8639] and refers to the protocol used to transport
-   YANG notifications between a publisher and a receiver.
-
+   identity in [RFC8639] and refers to the notification delivery
+   protocol used to deliver YANG notifications between a publisher and a
+   receiver.
 
 
 
@@ -172,33 +172,34 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 2.  Capabilities for Systems and Datastore Update Notifications
 
-   Section 3.1 of [RFC8641] lists the server capabilities related to
-   YANG-Push that are supported in the YANG module "ietf-notification-
-   capabilities".
+   Section 3.1 of [RFC8641] lists the NETCONF/RESTCONF server
+   capabilities related to YANG-Push that are supported in the YANG
+   module "ietf-notification-capabilities".
 
    These server capabilities are transport independent, session level
    capabilities.  They can be provided either at the implementation time
    or reported at runtime.
 
-   This document provides additional transport related attributes
-   associated with system capabilities:
+   This document provides additional attributes associated with system
+   capabilities that are related to the YANG notification delivery
+   protocol:
 
-   *  Specification of transport protocols for YANG notifications that a
-      client can request to establish, including HTTPS-based
-      [I-D.ietf-netconf-https-notif] or UDP-based
-      [I-D.ietf-netconf-udp-notif] configured transport connection.
+   *  Transport protocols supported for YANG notifications that a client
+      can request when establishing a subscription.  This includes
+      HTTPS-based [I-D.ietf-netconf-https-notif] or UDP-based
+      [I-D.ietf-netconf-udp-notif] transports for configured
+      subscriptions.
 
-   *  Specification of YANG notifications transport encodings, including
-      XML [RFC7950], JSON [RFC7951] or CBOR [RFC9254] supported by the
-      server;
+   *  YANG notifications encodings formats supported by the NETCONF/
+      RESTCONF server.  This includes XML [RFC7950], JSON [RFC7951] or
+      CBOR [RFC9254].
 
-   *  Specification of secure YANG notifications transport encryption
-      mechanisms that are supported by the server, including DTLS 1.2
-      [RFC6347], DTLS 1.3 [RFC9147], TLS 1.2 [RFC5246], and TLS 1.3
-      [RFC8446].
+   *  Security protocols supported for protecting YANG notifications
+      connections.  This includes DTLS 1.2 [RFC6347], DTLS 1.3
+      [RFC9147], TLS 1.2 [RFC5246], and TLS 1.3 [RFC8446].
 
-   *  To that end, the model defined in this document augments the
-      System Capabilities model[RFC9196].
+   The model defined in this document augments the System Capabilities
+   model defined in [RFC9196].
 
 2.1.  Tree Diagram
 
@@ -215,7 +216,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
              +--ro encoding-format*      identityref
 
 3.  YANG Module
-
 
 
 
@@ -506,33 +506,33 @@ Wu, et al.              Expires 12 February 2027                [Page 9]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
-      Ran Tao
-      Huawei
-      101 Software Avenue, Yuhua District
-      Nanjing, Jiangsu 210012
-      China
-      Email: taoran20@huawei.com
+    Ran Tao
+             Huawei
+             101 Software Avenue, Yuhua District
+             Nanjing, Jiangsu 210012
+             China
+             Email: taoran20@huawei.com
 
-      Liang Geng
-      China Mobile
-      32 Xuanwumen West St, Xicheng District
-      Beijing 10053
-      China
-      Email: gengliang@chinamobile.com
+             Liang Geng
+             China Mobile
+             32 Xuanwumen West St, Xicheng District
+             Beijing 10053
+             China
+             Email: gengliang@chinamobile.com
 
-      Peng Liu
-      China Mobile
-      Beiqijia Town, Changping District
-      Beijing 10053
-      China
-      Email: liupengyjy@chinamobile.com
+             Peng Liu
+             China Mobile
+             Beiqijia Town, Changping District
+             Beijing 10053
+             China
+             Email: liupengyjy@chinamobile.com
 
-      Wei Wang
-      China Telecom
-      32 Xuanwumen West St, Xicheng District
-      Beijing 102209
-      China
-      Email: wangw36@chinatelecom.cn
+             Wei Wang
+             China Telecom
+             32 Xuanwumen West St, Xicheng District
+             Beijing 102209
+             China
+             Email: wangw36@chinatelecom.cn
 
 8.  Acknowledgements
 
