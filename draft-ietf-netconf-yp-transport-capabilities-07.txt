@@ -506,33 +506,33 @@ Wu, et al.              Expires 12 February 2027                [Page 9]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
-    Ran Tao
-             Huawei
-             101 Software Avenue, Yuhua District
-             Nanjing, Jiangsu 210012
-             China
-             Email: taoran20@huawei.com
+   Ran Tao
+   Huawei
+   101 Software Avenue, Yuhua District
+   Nanjing, Jiangsu 210012
+   China
+   Email: taoran20@huawei.com
 
-             Liang Geng
-             China Mobile
-             32 Xuanwumen West St, Xicheng District
-             Beijing 10053
-             China
-             Email: gengliang@chinamobile.com
+   Liang Geng
+   China Mobile
+   32 Xuanwumen West St, Xicheng District
+   Beijing 10053
+   China
+   Email: gengliang@chinamobile.com
 
-             Peng Liu
-             China Mobile
-             Beiqijia Town, Changping District
-             Beijing 10053
-             China
-             Email: liupengyjy@chinamobile.com
+   Peng Liu
+   China Mobile
+   Beiqijia Town, Changping District
+   Beijing 10053
+   China
+   Email: liupengyjy@chinamobile.com
 
-             Wei Wang
-             China Telecom
-             32 Xuanwumen West St, Xicheng District
-             Beijing 102209
-             China
-             Email: wangw36@chinatelecom.cn
+   Wei Wang
+   China Telecom
+   32 Xuanwumen West St, Xicheng District
+   Beijing 102209
+   China
+   Email: wangw36@chinatelecom.cn
 
 8.  Acknowledgements
 
