@@ -74,13 +74,13 @@ Table of Contents
    2.  Capabilities for Systems and Datastore Update
            Notifications . . . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   4
-   3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
      4.1.  Updates to the IETF XML Registry  . . . . . . . . . . . .   8
      4.2.  Updates to the YANG Module Names Registry . . . . . . . .   8
    5.  Implementation Status . . . . . . . . . . . . . . . . . . . .   8
-     5.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .   8
-     5.2.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .   9
+     5.2.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .   9
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
@@ -201,10 +201,30 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    The model defined in this document augments the System Capabilities
    model defined in [RFC9196].
 
+   This model is intended to be used between an orchestrator and a
+   network device that provides YANG notifications.  A management
+   network between the orchestrator and the network device is assumed to
+   be available for exchanging YANG management information.  The
+   management connectivity and endpoint of the network device are
+   expected to be provisioned as part of the management network
+   configuration.  The orchestrator can use the established management
+   connection to discover the notification transport capabilities of the
+   network device before establishing the notification subscription.
+
 2.1.  Tree Diagram
 
    The following tree diagram [RFC8340] provides an overview of the data
    model.
+
+
+
+
+
+
+Wu, et al.              Expires 12 February 2027                [Page 4]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
 
    module: ietf-yp-transport-capabilities
 
@@ -216,15 +236,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
              +--ro encoding-format*      identityref
 
 3.  YANG Module
-
-
-
-
-
-Wu, et al.              Expires 12 February 2027                [Page 4]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
    <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-08-13.yang"
    module ietf-yp-transport-capabilities {
@@ -263,6 +274,14 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
         WG List:  <mailto:netconf@ietf.org>
 
         Authors:  Qin Wu
+
+
+
+Wu, et al.              Expires 12 February 2027                [Page 5]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
                   <mailto:bill.wu@huawei.com>
                   Qiufang Ma
                   <mailto:maqiufang1@huawei.com>
@@ -274,13 +293,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
        "This module defines an extension to YANG-Push
         Notification Capabilities model that provides additional
         transport specific capabilities for YANG notifications.
-
-
-
-Wu, et al.              Expires 12 February 2027                [Page 5]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
         The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
         NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
@@ -318,6 +330,14 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
        base security-protocol;
        description
          "Indicates DTLS Protocol Version 1.2. DTLS 1.2 is obsolete,
+
+
+
+Wu, et al.              Expires 12 February 2027                [Page 6]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
           and thus it is NOT RECOMMENDED to enable this feature.";
        reference
          "RFC 6347: The Datagram Transport Layer Security (DTLS)
@@ -330,14 +350,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
          "Indicates DTLS Protocol Version 1.3.";
        reference
          "RFC 9147: The Datagram Transport Layer Security (DTLS)
-
-
-
-Wu, et al.              Expires 12 February 2027                [Page 6]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
-
           Protocol Version 1.3.";
      }
 
@@ -374,6 +386,14 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                }
              }
              description
+
+
+
+Wu, et al.              Expires 12 February 2027                [Page 7]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
                "Indicates the supported YANG notifications transport
                 encryption protocols.";
            }
@@ -386,14 +406,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                 notifications.";
            }
          }
-
-
-
-Wu, et al.              Expires 12 February 2027                [Page 7]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
-
        }
      }
    }
@@ -429,6 +441,15 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
    Note to the RFC-Editor: Please remove this section before publishing.
 
+
+
+
+
+Wu, et al.              Expires 12 February 2027                [Page 8]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
 5.1.  Huawei VRP
 
    Huawei implemented this document for a YANG Push publisher in their
@@ -438,17 +459,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
    Cisco implemented this document for a YANG Push publisher in their
    IOS XR platform.
-
-
-
-
-
-
-
-Wu, et al.              Expires 12 February 2027                [Page 8]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
 6.  Security Considerations
 
@@ -471,16 +481,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    inherits all the security considerations of [RFC9196].
 
 7.  Contributors
-
-
-
-
-
-
-
-
-
-
 
 
 

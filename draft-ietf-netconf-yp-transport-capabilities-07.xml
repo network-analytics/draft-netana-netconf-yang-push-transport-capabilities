@@ -207,6 +207,16 @@
         <t>The model defined in this document augments the System Capabilities
         model defined in <xref target="RFC9196"/>.</t>
 
+        <t>This model is intended to be used between an orchestrator and a
+        network device that provides YANG notifications. A management network
+        between the orchestrator and the network device is assumed to be
+        available for exchanging YANG management information. The management
+        connectivity and endpoint of the network device are expected to be
+        provisioned as part of the management network configuration. The
+        orchestrator can use the established management connection to discover
+        the notification transport capabilities of the network device before
+        establishing the notification subscription.</t>
+
       <section title="Tree Diagram">
         <t>The following tree diagram <xref target="RFC8340" /> provides an overview of the data
           model.</t>
