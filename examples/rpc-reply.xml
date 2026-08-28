@@ -15,15 +15,23 @@
             <transport-protocol>hnt:https</transport-protocol>
             <encoding-format>sn:encode-xml</encoding-format>
             <encoding-format>sn:encode-json</encoding-format>
-            <security-protocol>tlscmn:tls12</security-protocol>
-            <security-protocol>tlscmn:tls13</security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls13
+            </transport-security-protocol>
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
             <encoding-format>sn:encode-json</encoding-format>
             <encoding-format>unt:encode-cbor</encoding-format>
-            <security-protocol>dtls12</security-protocol>
-            <security-protocol>dtls13</security-protocol>
+            <transport-security-protocol>
+              dtls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              dtls13
+            </transport-security-protocol>
           </transport-capability>
         </transport-capabilities>
       </notc:subscription-capabilities>

@@ -89,7 +89,7 @@ Table of Contents
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  12
    Appendix A.  Usage Example of interaction with UDP-Notif and
            HTTPS-Notif for Configured Subscription . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -231,9 +231,9 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro transport-capabilities
           +--ro transport-capability* [transport-protocol]
-             +--ro transport-protocol    identityref
-             +--ro security-protocol*    union
-             +--ro encoding-format*      identityref
+             +--ro transport-protocol             identityref
+             +--ro transport-security-protocol*   union
+             +--ro encoding-format*               identityref
 
 3.  YANG Module
 
@@ -377,7 +377,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                 protocol for Subscribed Notifications [RFC8639] and
                 YANG-Push [RFC8641].";
            }
-           leaf-list security-protocol {
+           leaf-list transport-security-protocol {
              type union {
                type identityref {
                  base security-protocol;
@@ -698,38 +698,6 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
    The following instance-data example describes the notification
    transport capabilities of a hypothetical "acme-router".
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 13]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
-
    <?xml version="1.0" encoding="UTF-8"?>
    <instance-data-set
      xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
@@ -743,7 +711,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      <content-schema>
        <module>ietf-system-capabilities@2022-02-17</module>
        <module>ietf-notification-capabilities@2022-02-17</module>
-       <module>ietf-yp-transport-capabilities@2026-08-13</module>
+       <module>ietf-yp-transport-capabilities@2026-08-28</module>
      </content-schema>
      <!-- revision date, contact, etc. -->
      <description>Server Capability Discovery</description>
@@ -754,17 +722,33 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
          xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
              <transport-capability>
                <transport-protocol>hnt:https</transport-protocol>
+
+
+
+Wu, et al.                Expires 1 March 2027                 [Page 13]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
                <encoding-format>sn:encode-xml</encoding-format>
                <encoding-format>sn:encode-json</encoding-format>
-               <security-protocol>tlscmn:tls12</security-protocol>
-               <security-protocol>tlscmn:tls13</security-protocol>
+               <transport-security-protocol>
+                 tlscmn:tls12
+               </transport-security-protocol>
+               <transport-security-protocol>
+                 tlscmn:tls13
+               </transport-security-protocol>
              </transport-capability>
              <transport-capability>
                <transport-protocol>unt:udp-notif</transport-protocol>
                <encoding-format>sn:encode-json</encoding-format>
                <encoding-format>unt:encode-cbor</encoding-format>
-               <security-protocol>dtls12</security-protocol>
-               <security-protocol>dtls13</security-protocol>
+               <transport-security-protocol>
+                 dtls12
+               </transport-security-protocol>
+               <transport-security-protocol>
+                 dtls13
+               </transport-security-protocol>
              </transport-capability>
            </transport-capabilities>
          </notc:subscription-capabilities>
@@ -776,15 +760,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    capabilities from the NETCONF or RESTCONF server.  For example, the
    client sends <get> request message to the server to query from the
    server.
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 14]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
    ================= NOTE: '\' line wrapping per RFC 8792 ==================
 
@@ -804,43 +779,15 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      </get>
    </rpc>
 
-   The server returns server data export capability using <rpc-reply> as
-   follows:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 15]
+Wu, et al.                Expires 1 March 2027                 [Page 14]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
+
+   The server returns server data export capability using <rpc-reply> as
+   follows:
 
    <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
      xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
@@ -859,15 +806,23 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                <transport-protocol>hnt:https</transport-protocol>
                <encoding-format>sn:encode-xml</encoding-format>
                <encoding-format>sn:encode-json</encoding-format>
-               <security-protocol>tlscmn:tls12</security-protocol>
-               <security-protocol>tlscmn:tls13</security-protocol>
+               <transport-security-protocol>
+                 tlscmn:tls12
+               </transport-security-protocol>
+               <transport-security-protocol>
+                 tlscmn:tls13
+               </transport-security-protocol>
              </transport-capability>
              <transport-capability>
                <transport-protocol>unt:udp-notif</transport-protocol>
                <encoding-format>sn:encode-json</encoding-format>
                <encoding-format>unt:encode-cbor</encoding-format>
-               <security-protocol>dtls12</security-protocol>
-               <security-protocol>dtls13</security-protocol>
+               <transport-security-protocol>
+                 dtls12
+               </transport-security-protocol>
+               <transport-security-protocol>
+                 dtls13
+               </transport-security-protocol>
              </transport-capability>
            </transport-capabilities>
          </notc:subscription-capabilities>
@@ -877,6 +832,16 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 Authors' Addresses
 
+
+
+
+
+
+Wu, et al.                Expires 1 March 2027                 [Page 15]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
    Qin Wu
    Huawei
    101 Software Avenue, Yuhua District
@@ -884,18 +849,6 @@ Authors' Addresses
    Jiangsu, 210012
    China
    Email: bill.wu@huawei.com
-
-
-
-
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 16]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
    Qiufang Ma
@@ -940,13 +893,4 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-
-
-
-
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 17]
+Wu, et al.                Expires 1 March 2027                 [Page 16]

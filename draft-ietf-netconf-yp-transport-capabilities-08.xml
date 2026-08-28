@@ -227,9 +227,9 @@ module: ietf-yp-transport-capabilities
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro transport-capabilities
        +--ro transport-capability* [transport-protocol]
-          +--ro transport-protocol    identityref
-          +--ro security-protocol*    union
-          +--ro encoding-format*      identityref
+          +--ro transport-protocol             identityref
+          +--ro transport-security-protocol*   union
+          +--ro encoding-format*               identityref
 ]]></sourcecode>
       </section>
     </section>
@@ -360,7 +360,7 @@ module ietf-yp-transport-capabilities {
              protocol for Subscribed Notifications [RFC8639] and
              YANG-Push [RFC8641].";
         }
-        leaf-list security-protocol {
+        leaf-list transport-security-protocol {
           type union {
             type identityref {
               base security-protocol;
@@ -549,7 +549,7 @@ Email: wangw36@chinatelecom.cn</artwork>
   <content-schema>
     <module>ietf-system-capabilities@2022-02-17</module>
     <module>ietf-notification-capabilities@2022-02-17</module>
-    <module>ietf-yp-transport-capabilities@2026-08-13</module>
+    <module>ietf-yp-transport-capabilities@2026-08-28</module>
   </content-schema>
   <!-- revision date, contact, etc. -->
   <description>Server Capability Discovery</description>
@@ -562,15 +562,23 @@ Email: wangw36@chinatelecom.cn</artwork>
             <transport-protocol>hnt:https</transport-protocol>
             <encoding-format>sn:encode-xml</encoding-format>
             <encoding-format>sn:encode-json</encoding-format>
-            <security-protocol>tlscmn:tls12</security-protocol>
-            <security-protocol>tlscmn:tls13</security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls13
+            </transport-security-protocol>
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
             <encoding-format>sn:encode-json</encoding-format>
             <encoding-format>unt:encode-cbor</encoding-format>
-            <security-protocol>dtls12</security-protocol>
-            <security-protocol>dtls13</security-protocol>
+            <transport-security-protocol>
+              dtls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              dtls13
+            </transport-security-protocol>
           </transport-capability>
         </transport-capabilities>
       </notc:subscription-capabilities>
@@ -625,15 +633,23 @@ f-yp-transport-capabilities"/>
             <transport-protocol>hnt:https</transport-protocol>
             <encoding-format>sn:encode-xml</encoding-format>
             <encoding-format>sn:encode-json</encoding-format>
-            <security-protocol>tlscmn:tls12</security-protocol>
-            <security-protocol>tlscmn:tls13</security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              tlscmn:tls13
+            </transport-security-protocol>
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
             <encoding-format>sn:encode-json</encoding-format>
             <encoding-format>unt:encode-cbor</encoding-format>
-            <security-protocol>dtls12</security-protocol>
-            <security-protocol>dtls13</security-protocol>
+            <transport-security-protocol>
+              dtls12
+            </transport-security-protocol>
+            <transport-security-protocol>
+              dtls13
+            </transport-security-protocol>
           </transport-capability>
         </transport-capabilities>
       </notc:subscription-capabilities>

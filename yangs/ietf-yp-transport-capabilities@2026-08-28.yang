@@ -121,7 +121,7 @@ module ietf-yp-transport-capabilities {
              protocol for Subscribed Notifications [RFC8639] and
              YANG-Push [RFC8641].";
         }
-        leaf-list security-protocol {
+        leaf-list transport-security-protocol {
           type union {
             type identityref {
               base security-protocol;
