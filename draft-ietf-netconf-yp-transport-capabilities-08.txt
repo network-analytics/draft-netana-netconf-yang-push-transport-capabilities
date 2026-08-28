@@ -190,7 +190,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
       [I-D.ietf-netconf-udp-notif] transports for configured
       subscriptions.
 
-   *  YANG notifications encodings formats supported by the NETCONF/
+   *  YANG notifications encoding formats supported by the NETCONF/
       RESTCONF server.  This includes XML [RFC7950], JSON [RFC7951] or
       CBOR [RFC9254].
 
@@ -237,7 +237,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 3.  YANG Module
 
-   <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-08-13.yang"
+   <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-08-28.yang"
    module ietf-yp-transport-capabilities {
      yang-version 1.1;
      namespace
@@ -308,17 +308,17 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
         to the license terms contained in, the Revised BSD License
         set forth in Section 4.c of the IETF Trust's Legal Provisions
         Relating to IETF Documents
-        (http://trustee.ietf.org/license-info).
+        (https://trustee.ietf.org/license-info).
 
         This version of this YANG module is part of RFC XXXX
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
         for full legal notices.";
 
-     revision 2026-08-13 {
+     revision 2026-08-28 {
        description
          "Initial revision.";
        reference
-         "RFC XXXX: YANG Notifications Transport Capabilities";
+         "RFC XXXX: YANG Notification Transport Capabilities";
      }
 
      identity security-protocol {
@@ -338,7 +338,8 @@ Wu, et al.                Expires 1 March 2027                  [Page 6]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
-          and thus it is NOT RECOMMENDED to enable this feature.";
+          and thus it is NOT RECOMMENDED to enable this protocol
+          version.";
        reference
          "RFC 6347: The Datagram Transport Layer Security (DTLS)
           Protocol Version 1.2.";
@@ -385,7 +386,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                  base tlscmn:tls-version-base;
                }
              }
-             description
 
 
 
@@ -394,6 +394,7 @@ Wu, et al.                Expires 1 March 2027                  [Page 7]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+             description
                "Indicates the supported YANG notifications transport
                 encryption protocols.";
            }
@@ -444,7 +445,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-
 Wu, et al.                Expires 1 March 2027                  [Page 8]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
@@ -462,9 +462,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 6.  Security Considerations
 
-   This section is modeled after the template described in Section 3.7
-   of [I-D.ietf-netmod-rfc8407bis]
-
    The "ietf-yp-transport-capabilities" YANG module defines a data model
    that is designed to be accessed via YANG-based management protocols,
    such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These protocols
@@ -481,6 +478,9 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    inherits all the security considerations of [RFC9196].
 
 7.  Contributors
+
+
+
 
 
 
@@ -536,9 +536,9 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 8.  Acknowledgements
 
-   The authors would like to thank Mohamed Boucadair, Kent Watson, Jan
-   Lindblad, Reshad Rahman, Xiao Min, Per Andersson and Rob Wilton for
-   their review and valuable comments.
+   The authors would like to thank Mohamed Boucadair, Kent Watsen, Jan
+   Lindblad, Reshad Rahman, Xiao Min, Per Andersson, Rob Wilton, Paul
+   Aitken, and Christian Huitema for their review and valuable comments.
 
 9.  References
 
@@ -549,10 +549,10 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008,
-              <https://www.rfc-editor.org/info/rfc5246>.
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/info/rfc6241>.
 
 
 
@@ -561,11 +561,6 @@ Wu, et al.                Expires 1 March 2027                 [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
-
-   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
-              and A. Bierman, Ed., "Network Configuration Protocol
-              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
-              <https://www.rfc-editor.org/info/rfc6241>.
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -597,10 +592,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
               (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
               <https://www.rfc-editor.org/info/rfc8342>.
 
-   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/info/rfc8446>.
-
    [RFC8639]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Subscription to YANG Notifications",
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
@@ -609,14 +600,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 11]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
    [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
@@ -628,11 +611,22 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
               Notifications", RFC 9196, DOI 10.17487/RFC9196, February
               2022, <https://www.rfc-editor.org/info/rfc9196>.
 
+
+
+Wu, et al.                Expires 1 March 2027                 [Page 11]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
               in the Concise Binary Object Representation (CBOR)",
               RFC 9254, DOI 10.17487/RFC9254, July 2022,
               <https://www.rfc-editor.org/info/rfc9254>.
+
+   [RFC9645]  Watsen, K., "YANG Groupings for TLS Clients and TLS
+              Servers", RFC 9645, DOI 10.17487/RFC9645, October 2024,
+              <https://www.rfc-editor.org/info/rfc9645>.
 
 9.2.  Informative References
 
@@ -667,6 +661,12 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
               January 2006, <https://www.rfc-editor.org/info/rfc4252>.
 
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246,
+              DOI 10.17487/RFC5246, August 2008,
+              <https://www.rfc-editor.org/info/rfc5246>.
+
+
 
 
 Wu, et al.                Expires 1 March 2027                 [Page 12]
@@ -683,6 +683,10 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
@@ -693,10 +697,6 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
    The following instance-data example describes the notification
    transport capabilities of a hypothetical "acme-router".
-
-
-
-
 
 
 
@@ -774,8 +774,8 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
    In addition, the client could also query notification transport
    capabilities from the NETCONF or RESTCONF server.  For example, the
-   client sends <get> request message to the the server to query from
-   the server.
+   client sends <get> request message to the server to query from the
+   server.
 
 
 
