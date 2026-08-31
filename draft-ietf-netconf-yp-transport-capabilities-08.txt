@@ -5,11 +5,11 @@
 NETCONF Working Group                                              Q. Wu
 Internet-Draft                                                     Q. Ma
 Intended status: Standards Track                                  Huawei
-Expires: 1 March 2027                                      A. Huang-Feng
+Expires: 4 March 2027                                      A. Huang-Feng
                                                         Deutsche Telekom
                                                                  T. Graf
                                                                 Swisscom
-                                                          28 August 2026
+                                                          31 August 2026
 
 
                 YANG Notification Transport Capabilities
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 March 2027.
+   This Internet-Draft will expire on 4 March 2027.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 1]
+Wu, et al.                Expires 4 March 2027                  [Page 1]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -78,7 +78,7 @@ Table of Contents
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
      4.1.  Updates to the IETF XML Registry  . . . . . . . . . . . .   8
      4.2.  Updates to the YANG Module Names Registry . . . . . . . .   8
-   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .   8
+   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .   9
      5.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .   9
      5.2.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
@@ -89,7 +89,7 @@ Table of Contents
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  12
    Appendix A.  Usage Example of interaction with UDP-Notif and
            HTTPS-Notif for Configured Subscription . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 2]
+Wu, et al.                Expires 4 March 2027                  [Page 2]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -165,7 +165,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 3]
+Wu, et al.                Expires 4 March 2027                  [Page 3]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -221,7 +221,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 4]
+Wu, et al.                Expires 4 March 2027                  [Page 4]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -231,11 +231,15 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro transport-capabilities
           +--ro transport-capability* [transport-protocol]
-             +--ro transport-protocol             identityref
-             +--ro transport-security-protocol*   union
-             +--ro encoding-format*               identityref
+             +--ro transport-protocol              identityref
+             +--ro transport-security-protocol*    union
+             +--ro notification-encoding-format*   identityref
 
 3.  YANG Module
+
+   The "ietf-yp-transport-capabilities" module augments the modules
+   defined in [RFC9196], and uses identities from [RFC8639] and
+   [RFC9645].
 
    <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-08-28.yang"
    module ietf-yp-transport-capabilities {
@@ -270,18 +274,18 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      organization
        "IETF NETCONF (Network Configuration) Working Group";
      contact
-       "WG Web:   <https://datatracker.ietf.org/group/netconf/>
-        WG List:  <mailto:netconf@ietf.org>
-
-        Authors:  Qin Wu
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 5]
+Wu, et al.                Expires 4 March 2027                  [Page 5]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+       "WG Web:   <https://datatracker.ietf.org/group/netconf/>
+        WG List:  <mailto:netconf@ietf.org>
+
+        Authors:  Qin Wu
                   <mailto:bill.wu@huawei.com>
                   Qiufang Ma
                   <mailto:maqiufang1@huawei.com>
@@ -326,18 +330,18 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
          "Identity for YANG notifications security protocols.";
      }
 
-     identity dtls12 {
-       base security-protocol;
-       description
-         "Indicates DTLS Protocol Version 1.2. DTLS 1.2 is obsolete,
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 6]
+Wu, et al.                Expires 4 March 2027                  [Page 6]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+     identity dtls12 {
+       base security-protocol;
+       description
+         "Indicates DTLS Protocol Version 1.2. DTLS 1.2 is obsolete,
           and thus it is NOT RECOMMENDED to enable this protocol
           version.";
        reference
@@ -382,23 +386,23 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                type identityref {
                  base security-protocol;
                }
-               type identityref {
-                 base tlscmn:tls-version-base;
-               }
-             }
 
 
 
-Wu, et al.                Expires 1 March 2027                  [Page 7]
+Wu, et al.                Expires 4 March 2027                  [Page 7]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+               type identityref {
+                 base tlscmn:tls-version-base;
+               }
+             }
              description
                "Indicates the supported YANG notifications transport
                 encryption protocols.";
            }
-           leaf-list encoding-format {
+           leaf-list notification-encoding-format {
              type identityref {
                base sn:encoding;
              }
@@ -423,7 +427,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    URI: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
    Registrant Contact: The IESG.
    XML: N/A; the requested URI is an XML namespace.
-   Reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
+   Reference: RFC XXXX (RFC Ed.: replace XXXX with actual RFC number
      and remove this note.)
 
 4.2.  Updates to the YANG Module Names Registry
@@ -435,20 +439,20 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    name: ietf-yp-transport-capabilities
    namespace: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
    prefix: yptc
-   reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
+   reference: RFC XXXX (RFC Ed.: replace XXXX with actual RFC number
      and remove this note.)
+
+
+
+
+Wu, et al.                Expires 4 March 2027                  [Page 8]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
 
 5.  Implementation Status
 
    Note to the RFC-Editor: Please remove this section before publishing.
-
-
-
-
-Wu, et al.                Expires 1 March 2027                  [Page 8]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
 5.1.  Huawei VRP
 
@@ -497,11 +501,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-
-
-
-
-Wu, et al.                Expires 1 March 2027                  [Page 9]
+Wu, et al.                Expires 4 March 2027                  [Page 9]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -557,7 +557,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                 [Page 10]
+Wu, et al.                Expires 4 March 2027                 [Page 10]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -613,7 +613,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                 [Page 11]
+Wu, et al.                Expires 4 March 2027                 [Page 11]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -669,7 +669,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                 [Page 12]
+Wu, et al.                Expires 4 March 2027                 [Page 12]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
@@ -725,13 +725,17 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
 
 
 
-Wu, et al.                Expires 1 March 2027                 [Page 13]
+Wu, et al.                Expires 4 March 2027                 [Page 13]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
-               <encoding-format>sn:encode-xml</encoding-format>
-               <encoding-format>sn:encode-json</encoding-format>
+               <notification-encoding-format>
+                 sn:encode-xml
+               </notification-encoding-format>
+               <notification-encoding-format>
+                 sn:encode-json
+               </notification-encoding-format>
                <transport-security-protocol>
                  tlscmn:tls12
                </transport-security-protocol>
@@ -741,8 +745,12 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
              </transport-capability>
              <transport-capability>
                <transport-protocol>unt:udp-notif</transport-protocol>
-               <encoding-format>sn:encode-json</encoding-format>
-               <encoding-format>unt:encode-cbor</encoding-format>
+               <notification-encoding-format>
+                 sn:encode-json
+               </notification-encoding-format>
+               <notification-encoding-format>
+                 unt:encode-cbor
+               </notification-encoding-format>
                <transport-security-protocol>
                  dtls12
                </transport-security-protocol>
@@ -760,6 +768,23 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    capabilities from the NETCONF or RESTCONF server.  For example, the
    client sends <get> request message to the server to query from the
    server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 4 March 2027                 [Page 14]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
 
    ================= NOTE: '\' line wrapping per RFC 8792 ==================
 
@@ -779,13 +804,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
      </get>
    </rpc>
 
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 14]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
-
    The server returns server data export capability using <rpc-reply> as
    follows:
 
@@ -804,19 +822,35 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
        xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
              <transport-capability>
                <transport-protocol>hnt:https</transport-protocol>
-               <encoding-format>sn:encode-xml</encoding-format>
-               <encoding-format>sn:encode-json</encoding-format>
+               <notification-encoding-format>
+                 sn:encode-xml
+               </notification-encoding-format>
+               <notification-encoding-format>
+                 sn:encode-json
+               </notification-encoding-format>
                <transport-security-protocol>
                  tlscmn:tls12
                </transport-security-protocol>
                <transport-security-protocol>
                  tlscmn:tls13
                </transport-security-protocol>
+
+
+
+Wu, et al.                Expires 4 March 2027                 [Page 15]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
+
+
              </transport-capability>
              <transport-capability>
                <transport-protocol>unt:udp-notif</transport-protocol>
-               <encoding-format>sn:encode-json</encoding-format>
-               <encoding-format>unt:encode-cbor</encoding-format>
+               <notification-encoding-format>
+                 sn:encode-json
+               </notification-encoding-format>
+               <notification-encoding-format>
+                 unt:encode-cbor
+               </notification-encoding-format>
                <transport-security-protocol>
                  dtls12
                </transport-security-protocol>
@@ -831,16 +865,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    </rpc-reply>
 
 Authors' Addresses
-
-
-
-
-
-
-Wu, et al.                Expires 1 March 2027                 [Page 15]
-
-Internet-Draft  YANG Notification Transport Capabilities     August 2026
-
 
    Qin Wu
    Huawei
@@ -865,6 +889,13 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    Barcelona
    Spain
    Email: alex.huang-feng@t-systems.com
+
+
+
+
+Wu, et al.                Expires 4 March 2027                 [Page 16]
+
+Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
    Thomas Graf
@@ -893,4 +924,29 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-Wu, et al.                Expires 1 March 2027                 [Page 16]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wu, et al.                Expires 4 March 2027                 [Page 17]

@@ -1,20 +1,33 @@
-<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<instance-data-set 
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
   xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
   xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
   xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
   xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
-  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
   xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
-  message-id="101">
-  <data>
+  xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
+  <name>acme-router-notification-capabilities</name>
+  <content-schema>
+    <module>ietf-system-capabilities@2022-02-17</module>
+    <module>ietf-notification-capabilities@2022-02-17</module>
+    <module>ietf-yp-transport-capabilities@2026-08-28</module>
+  </content-schema>
+  <!-- revision date, contact, etc. -->
+  <description>Server Capability Discovery</description>
+  <content-data>
     <sysc:system-capabilities>
       <notc:subscription-capabilities>
-        <transport-capabilities 
-    xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
+        <transport-capabilities
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
-            <encoding-format>sn:encode-xml</encoding-format>
-            <encoding-format>sn:encode-json</encoding-format>
+            <notification-encoding-format>
+              sn:encode-xml
+            </notification-encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
             <transport-security-protocol>
               tlscmn:tls12
             </transport-security-protocol>
@@ -24,8 +37,12 @@
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
-            <encoding-format>sn:encode-json</encoding-format>
-            <encoding-format>unt:encode-cbor</encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
+            <notification-encoding-format>
+              unt:encode-cbor
+            </notification-encoding-format>
             <transport-security-protocol>
               dtls12
             </transport-security-protocol>
@@ -36,5 +53,5 @@
         </transport-capabilities>
       </notc:subscription-capabilities>
     </sysc:system-capabilities>
-  </data>
-</rpc-reply>
+  </content-data>
+</instance-data-set>

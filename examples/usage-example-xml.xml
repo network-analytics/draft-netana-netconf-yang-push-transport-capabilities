@@ -22,8 +22,12 @@
       xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
-            <encoding-format>sn:encode-xml</encoding-format>
-            <encoding-format>sn:encode-json</encoding-format>
+            <notification-encoding-format>
+              sn:encode-xml
+            </notification-encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
             <transport-security-protocol>
               tlscmn:tls12
             </transport-security-protocol>
@@ -33,8 +37,12 @@
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
-            <encoding-format>sn:encode-json</encoding-format>
-            <encoding-format>unt:encode-cbor</encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
+            <notification-encoding-format>
+              unt:encode-cbor
+            </notification-encoding-format>
             <transport-security-protocol>
               dtls12
             </transport-security-protocol>

@@ -134,7 +134,7 @@ module ietf-yp-transport-capabilities {
             "Indicates the supported YANG notifications transport
              encryption protocols.";
         }
-        leaf-list encoding-format {
+        leaf-list notification-encoding-format {
           type identityref {
             base sn:encoding;
           }

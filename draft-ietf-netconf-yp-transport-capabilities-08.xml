@@ -103,7 +103,7 @@
       </address>
     </author>
 
-    <date day="28" month="August" year="2026" />
+    <date day="31" month="August" year="2026" />
 
     <area>OPS Area</area>
 
@@ -218,7 +218,7 @@
         establishing the notification subscription.</t>
 
       <section title="Tree Diagram">
-        <t>The following tree diagram <xref target="RFC8340" /> provides an overview of the data
+        <t>The following tree diagram <xref target="RFC8340"/> provides an overview of the data
           model.</t>
 
         <sourcecode type="yangtree"><![CDATA[
@@ -227,14 +227,18 @@ module: ietf-yp-transport-capabilities
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro transport-capabilities
        +--ro transport-capability* [transport-protocol]
-          +--ro transport-protocol             identityref
-          +--ro transport-security-protocol*   union
-          +--ro encoding-format*               identityref
+          +--ro transport-protocol              identityref
+          +--ro transport-security-protocol*    union
+          +--ro notification-encoding-format*   identityref
 ]]></sourcecode>
       </section>
     </section>
 
     <section title="YANG Module">
+
+      <t>The "ietf-yp-transport-capabilities" module augments the modules defined in <xref target="RFC9196"/>, and
+        uses identities from <xref target="RFC8639"/> and <xref target="RFC9645"/>.</t>
+
       <sourcecode type="yang" markers="true"
         name="ietf-yp-transport-capabilities@2026-08-28.yang"><![CDATA[
 module ietf-yp-transport-capabilities {
@@ -373,7 +377,7 @@ module ietf-yp-transport-capabilities {
             "Indicates the supported YANG notifications transport
              encryption protocols.";
         }
-        leaf-list encoding-format {
+        leaf-list notification-encoding-format {
           type identityref {
             base sn:encoding;
           }
@@ -398,7 +402,7 @@ module ietf-yp-transport-capabilities {
 URI: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
-Reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
+Reference: RFC XXXX (RFC Ed.: replace XXXX with actual RFC number
   and remove this note.)]]></artwork>
 
       </section>
@@ -413,7 +417,7 @@ Reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
 name: ietf-yp-transport-capabilities
 namespace: urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities
 prefix: yptc
-reference: RFC XXXX (RFC Ed.: replace XXX with actual RFC number
+reference: RFC XXXX (RFC Ed.: replace XXXX with actual RFC number
   and remove this note.)]]></artwork>
       </section>
     </section>
@@ -560,8 +564,12 @@ Email: wangw36@chinatelecom.cn</artwork>
       xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
-            <encoding-format>sn:encode-xml</encoding-format>
-            <encoding-format>sn:encode-json</encoding-format>
+            <notification-encoding-format>
+              sn:encode-xml
+            </notification-encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
             <transport-security-protocol>
               tlscmn:tls12
             </transport-security-protocol>
@@ -571,8 +579,12 @@ Email: wangw36@chinatelecom.cn</artwork>
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
-            <encoding-format>sn:encode-json</encoding-format>
-            <encoding-format>unt:encode-cbor</encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
+            <notification-encoding-format>
+              unt:encode-cbor
+            </notification-encoding-format>
             <transport-security-protocol>
               dtls12
             </transport-security-protocol>
@@ -631,8 +643,12 @@ f-yp-transport-capabilities"/>
     xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
-            <encoding-format>sn:encode-xml</encoding-format>
-            <encoding-format>sn:encode-json</encoding-format>
+            <notification-encoding-format>
+              sn:encode-xml
+            </notification-encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
             <transport-security-protocol>
               tlscmn:tls12
             </transport-security-protocol>
@@ -642,8 +658,12 @@ f-yp-transport-capabilities"/>
           </transport-capability>
           <transport-capability>
             <transport-protocol>unt:udp-notif</transport-protocol>
-            <encoding-format>sn:encode-json</encoding-format>
-            <encoding-format>unt:encode-cbor</encoding-format>
+            <notification-encoding-format>
+              sn:encode-json
+            </notification-encoding-format>
+            <notification-encoding-format>
+              unt:encode-cbor
+            </notification-encoding-format>
             <transport-security-protocol>
               dtls12
             </transport-security-protocol>
