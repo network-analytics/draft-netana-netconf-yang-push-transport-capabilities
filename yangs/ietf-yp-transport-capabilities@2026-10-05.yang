@@ -66,7 +66,7 @@ module ietf-yp-transport-capabilities {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2026-08-28 {
+  revision 2026-10-05 {
     description
       "Initial revision.";
     reference
@@ -120,7 +120,9 @@ module ietf-yp-transport-capabilities {
           description
             "Indicates the supported YANG notifications transport
              protocol for Subscribed Notifications [RFC8639] and
-             YANG-Push [RFC8641].";
+             YANG-Push [RFC8641]. Transport protocols are
+             represented by identities derived from the 'transport'
+             identity defined in [RFC8639].";
         }
         leaf-list transport-security-protocol {
           type union {
@@ -141,7 +143,9 @@ module ietf-yp-transport-capabilities {
           }
           description
             "Indicates supported encoding formats for YANG
-             notifications.";
+             notifications. Encoding formats are represented by
+             identities derived from the 'encoding' identity
+             defined in [RFC8639].";
         }
       }
     }

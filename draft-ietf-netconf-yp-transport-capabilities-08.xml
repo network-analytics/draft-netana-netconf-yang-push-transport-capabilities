@@ -103,7 +103,7 @@
       </address>
     </author>
 
-    <date day="31" month="August" year="2026" />
+    <date day="05" month="October" year="2026" />
 
     <area>OPS Area</area>
 
@@ -203,6 +203,25 @@
             target="RFC6347">DTLS 1.2</xref>, <xref target="RFC9147">DTLS 1.3</xref>, <xref
             target="RFC5246">TLS 1.2</xref>, and <xref target="RFC8446">TLS 1.3</xref>.</t>
         </list>
+
+        <t>The values advertised by these capabilities are defined using YANG identities.
+          The set of values is therefore not limited to the identities defined or referenced
+          by this document. The "transport-protocol" leaf uses identities derived from the
+          "transport" identity defined in <xref target="RFC8639"/>. Notification transport
+          specifications define identities derived from this base identity for the transports
+          they specify. For example, <xref target="I-D.ietf-netconf-https-notif"/> defines the
+          "https" transport identity, while <xref target="I-D.ietf-netconf-udp-notif"/> defines
+          the "udp-notif" transport identity. These identities can consequently be advertised
+          as values of the "transport-protocol" leaf.</t>
+
+        <t>The same mechanism is used for notification encoding formats and security protocols.
+          The "notification-encoding-format" leaf-list uses identities derived from the "encoding"
+          identity defined in <xref target="RFC8639"/>.  For example, <xref target="RFC8639"/>
+          defines the "encode-xml" and "encode-json" identities, while additional encodings
+          can be defined by other YANG modules. Similarly, security protocol versions are represented
+          by identities, including the TLS identities defined in <xref target="RFC9645"/> and
+          the DTLS identities defined in this document.  New values can be introduced by
+          defining new identities derived from the corresponding base identity.</t>
 
         <t>The model defined in this document augments the System Capabilities
         model defined in <xref target="RFC9196"/>.</t>
@@ -363,7 +382,9 @@ module ietf-yp-transport-capabilities {
           description
             "Indicates the supported YANG notifications transport
              protocol for Subscribed Notifications [RFC8639] and
-             YANG-Push [RFC8641].";
+             YANG-Push [RFC8641]. Transport protocols are
+             represented by identities derived from the 'transport'
+             identity defined in [RFC8639].";
         }
         leaf-list transport-security-protocol {
           type union {
@@ -384,7 +405,9 @@ module ietf-yp-transport-capabilities {
           }
           description
             "Indicates supported encoding formats for YANG
-             notifications.";
+             notifications. Encoding formats are represented by
+             identities derived from the 'encoding' identity
+             defined in [RFC8639].";
         }
       }
     }
@@ -500,7 +523,7 @@ Email: wangw36@chinatelecom.cn</artwork>
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Mohamed Boucadair,
         Kent Watsen, Jan Lindblad, Reshad Rahman, Xiao Min, Per Andersson,
-        Rob Wilton, Paul Aitken, and Christian Huitema for their review and valuable
+        Rob Wilton, Paul Aitken, Christian Huitema and David Black for their review and valuable
         comments.</t>
     </section>
   </middle>
