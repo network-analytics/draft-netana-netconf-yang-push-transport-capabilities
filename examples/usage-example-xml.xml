@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<instance-data-set 
+<instance-data-set
   xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
   xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
   xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
@@ -19,7 +19,7 @@
     <sysc:system-capabilities>
       <notc:subscription-capabilities>
         <transport-capabilities
-      xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
             <notification-encoding-format>

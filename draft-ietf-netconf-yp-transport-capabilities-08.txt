@@ -194,8 +194,8 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
       RESTCONF server.  This includes XML [RFC7950], JSON [RFC7951] or
       CBOR [RFC9254].
 
-   *  Security protocols supported for protecting YANG notifications
-      connections.  This includes DTLS 1.2 [RFC6347], DTLS 1.3
+   *  Security protocols supported for protecting connections for YANG
+      notifications.  This includes DTLS 1.2 [RFC6347], DTLS 1.3
       [RFC9147], TLS 1.2 [RFC5246], and TLS 1.3 [RFC8446].
 
    The model defined in this document augments the System Capabilities
@@ -241,7 +241,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    defined in [RFC9196], and uses identities from [RFC8639] and
    [RFC9645].
 
-   <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-08-28.yang"
+   <CODE BEGINS> file "ietf-yp-transport-capabilities@2026-10-05.yang"
    module ietf-yp-transport-capabilities {
      yang-version 1.1;
      namespace
@@ -318,7 +318,7 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
         for full legal notices.";
 
-     revision 2026-08-28 {
+     revision 2026-10-05 {
        description
          "Initial revision.";
        reference
@@ -364,7 +364,8 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
          "Adds subscription-related system level capabilities.";
        container transport-capabilities {
          description
-           "Specifies capabilities related to YANG-Push transports.";
+           "Specifies capabilities related to YANG notification
+            transports.";
          list transport-capability {
            key "transport-protocol";
            description
@@ -385,7 +386,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
              type union {
                type identityref {
                  base security-protocol;
-               }
 
 
 
@@ -394,6 +394,7 @@ Wu, et al.                Expires 4 March 2027                  [Page 7]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+               }
                type identityref {
                  base tlscmn:tls-version-base;
                }
@@ -444,7 +445,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-
 Wu, et al.                Expires 4 March 2027                  [Page 8]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
@@ -478,17 +478,17 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    RESTCONF protocol operations and content.
 
    All protocol-accessible data nodes are read-only and cannot be
-   modified.  The data in the module is not security sensitive.  It
-   inherits all the security considerations of [RFC9196].
+   modified.  However, the 'transport-security-protocol' leaf-list
+   exposes the security protocol versions supported by the server.  This
+   information can reveal aspects of the server's security posture,
+   including support for obsolete or deprecated protocol versions, and
+   may facilitate enumeration of the server's security capabilities.
+   Access to this information SHOULD therefore be restricted to
+   authorized users using appropriate access control mechanisms, such as
+   NACM.  This module inherits all the security considerations of
+   [RFC9196].
 
 7.  Contributors
-
-
-
-
-
-
-
 
 
 
@@ -698,11 +698,14 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
    The following instance-data example describes the notification
    transport capabilities of a hypothetical "acme-router".
 
+   ================= NOTE: '\' line wrapping per RFC 8792 =================
+
    <?xml version="1.0" encoding="UTF-8"?>
    <instance-data-set
      xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-instance-data"
      xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-     xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+     xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilitie\
+   s"
      xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
      xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
      xmlns:tlscmn="urn:ietf:params:xml:ns:yang:ietf-tls-common"
@@ -711,7 +714,7 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
      <content-schema>
        <module>ietf-system-capabilities@2022-02-17</module>
        <module>ietf-notification-capabilities@2022-02-17</module>
-       <module>ietf-yp-transport-capabilities@2026-08-28</module>
+       <module>ietf-yp-transport-capabilities@2026-10-05</module>
      </content-schema>
      <!-- revision date, contact, etc. -->
      <description>Server Capability Discovery</description>
@@ -719,9 +722,6 @@ Appendix A.  Usage Example of interaction with UDP-Notif and HTTPS-Notif
        <sysc:system-capabilities>
          <notc:subscription-capabilities>
            <transport-capabilities
-         xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
-             <transport-capability>
-               <transport-protocol>hnt:https</transport-protocol>
 
 
 
@@ -730,6 +730,10 @@ Wu, et al.                Expires 4 March 2027                 [Page 13]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+             xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabili\
+   ties">
+             <transport-capability>
+               <transport-protocol>hnt:https</transport-protocol>
                <notification-encoding-format>
                  sn:encode-xml
                </notification-encoding-format>
@@ -777,10 +781,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
 
-
-
-
-
 Wu, et al.                Expires 4 March 2027                 [Page 14]
 
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
@@ -807,9 +807,12 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
    The server returns server data export capability using <rpc-reply> as
    follows:
 
+   ================= NOTE: '\' line wrapping per RFC 8792 =================
+
    <rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
      xmlns:sysc="urn:ietf:params:xml:ns:yang:ietf-system-capabilities"
-     xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilities"
+     xmlns:notc="urn:ietf:params:xml:ns:yang:ietf-notification-capabilitie\
+   s"
      xmlns:hnt="urn:ietf:params:xml:ns:yang:ietf-https-notif-transport"
      xmlns:sn="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications"
      xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport"
@@ -819,7 +822,8 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
        <sysc:system-capabilities>
          <notc:subscription-capabilities>
            <transport-capabilities
-       xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
+             xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabili\
+   ties">
              <transport-capability>
                <transport-protocol>hnt:https</transport-protocol>
                <notification-encoding-format>
@@ -830,10 +834,6 @@ Internet-Draft  YANG Notification Transport Capabilities     August 2026
                </notification-encoding-format>
                <transport-security-protocol>
                  tlscmn:tls12
-               </transport-security-protocol>
-               <transport-security-protocol>
-                 tlscmn:tls13
-               </transport-security-protocol>
 
 
 
@@ -842,6 +842,10 @@ Wu, et al.                Expires 4 March 2027                 [Page 15]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+               </transport-security-protocol>
+               <transport-security-protocol>
+                 tlscmn:tls13
+               </transport-security-protocol>
              </transport-capability>
              <transport-capability>
                <transport-protocol>unt:udp-notif</transport-protocol>
@@ -884,11 +888,7 @@ Authors' Addresses
    Email: maqiufang1@huawei.com
 
 
-   Alex Huang Feng
-   Deutsche Telekom
-   Barcelona
-   Spain
-   Email: alex.huang-feng@t-systems.com
+
 
 
 
@@ -898,19 +898,19 @@ Wu, et al.                Expires 4 March 2027                 [Page 16]
 Internet-Draft  YANG Notification Transport Capabilities     August 2026
 
 
+   Alex Huang Feng
+   Deutsche Telekom
+   Barcelona
+   Spain
+   Email: alex.huang-feng@t-systems.com
+
+
    Thomas Graf
    Swisscom
    Binzring 17
    CH-8045 Zurich
    Switzerland
    Email: thomas.graf@swisscom.com
-
-
-
-
-
-
-
 
 
 

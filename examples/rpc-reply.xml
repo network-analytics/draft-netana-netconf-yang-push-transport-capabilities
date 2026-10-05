@@ -9,8 +9,8 @@
   <data>
     <sysc:system-capabilities>
       <notc:subscription-capabilities>
-        <transport-capabilities 
-    xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
+        <transport-capabilities
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-transport-capabilities">
           <transport-capability>
             <transport-protocol>hnt:https</transport-protocol>
             <notification-encoding-format>

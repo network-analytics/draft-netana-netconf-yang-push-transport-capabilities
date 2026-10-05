@@ -104,7 +104,8 @@ module ietf-yp-transport-capabilities {
       "Adds subscription-related system level capabilities.";
     container transport-capabilities {
       description
-        "Specifies capabilities related to YANG-Push transports.";
+        "Specifies capabilities related to YANG notification
+         transports.";
       list transport-capability {
         key "transport-protocol";
         description
