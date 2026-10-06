@@ -11,7 +11,7 @@
   <content-schema>
     <module>ietf-system-capabilities@2022-02-17</module>
     <module>ietf-notification-capabilities@2022-02-17</module>
-    <module>ietf-yp-transport-capabilities@2026-08-28</module>
+    <module>ietf-yp-transport-capabilities@2026-10-05</module>
   </content-schema>
   <!-- revision date, contact, etc. -->
   <description>Server Capability Discovery</description>

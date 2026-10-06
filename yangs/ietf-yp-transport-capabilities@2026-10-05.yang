@@ -75,7 +75,8 @@ module ietf-yp-transport-capabilities {
 
   identity security-protocol {
     description
-      "Identity for YANG notifications security protocols.";
+      "Identity for YANG notifications security protocols
+      version.";
   }
 
   identity dtls12 {
